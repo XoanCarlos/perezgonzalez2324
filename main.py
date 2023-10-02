@@ -1,9 +1,24 @@
+import eventos
+from MainWindow import *
+import sys, var
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hola, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+class Main(QtWidgets.QMainWindow):
 
+    def __init__(self):
+        super(Main, self).__init__()
+        var.ui = Ui_mainWindow()
+        var.ui.setupUi(self) #encargado la interfaz
 
-# Press the green button in the gutter to run the script.
+        '''
+        
+        zona de eventos de botones
+        '''
+        var.ui.btnSalir.clicked.connect(eventos.Eventos.saludar)
+
 if __name__ == '__main__':
-    print_hi('Carlos en el curso de DAM;')
+    app = QtWidgets.QApplication([])
+    window = Main()
+    window.show()
+    sys.exit(app.exec())
+
+
