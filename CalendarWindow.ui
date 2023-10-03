@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DialogCalendar</class>
+ <widget class="QDialog" name="DialogCalendar">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Fecha de Alta</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>img/logo.ico</normaloff>img/logo.ico</iconset>
+  </property>
+  <widget class="QCalendarWidget" name="Calendar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>401</width>
+     <height>301</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
