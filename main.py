@@ -1,7 +1,24 @@
 import eventos, var, sys
 from MainWindow import *
 from CalendarWindow import *
+from dlgAcerca import *
+from dlgSalir import *
 from datetime import datetime
+
+class DlgSalir(QtWidgets.QDialog):
+    def __init__(self):
+        super(DlgSalir, self).__init__()
+        var.dlgsalir = Ui_dlgSalir()
+        var.dlgsalir.setupUi(self)
+        var.dlgsalir.btnSalir.clicked.connect(eventos.Eventos.salir)
+        var.dlgsalir.btnCancelar.clicked.connect(eventos.Eventos.cerrarsalir)
+
+class DlgAcerca(QtWidgets.QDialog):
+    def __init__(self):
+        super(DlgAcerca, self).__init__()
+        var.dlgacerca = Ui_dlgAbout()
+        var.dlgacerca.setupUi(self)
+        var.dlgacerca.btnCerrar.clicked.connect(eventos.Eventos.cerraracercade)
 
 
 class Calendar(QtWidgets.QDialog):
@@ -21,6 +38,9 @@ class Main(QtWidgets.QMainWindow):
         var.ui = Ui_MainWindow()
         var.ui.setupUi(self)
         var.calendar = Calendar()
+        var.dlgacerca = DlgAcerca()
+        var.dlgsalir = DlgSalir()
+
 
         '''
        
@@ -28,11 +48,13 @@ class Main(QtWidgets.QMainWindow):
         '''
         var.ui.btnCalendar.clicked.connect(eventos.Eventos.abrirCalendar)
 
+
         """
         
         zona de eventes del menubar
         """
-        var.ui.actionSalir.triggered.connect(eventos.Eventos.salir)
+        var.ui.actionSalir.triggered.connect(eventos.Eventos.mostrarsalir)
+        var.ui.actionAcerca_de.triggered.connect(eventos.Eventos.acercade)
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])

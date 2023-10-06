@@ -20,7 +20,27 @@ class Eventos():
     @staticmethod
     def acercade():
         try:
-            pass
+            var.dlgacerca.show()
+        except Exception as error:
+            print('error abrir ventana acerca de', error)
+    @staticmethod
+    def cerraracercade():
+        try:
+            var.dlgacerca.hide()
         except Exception as error:
             print('error abrir ventana acerca de', error)
 
+    @staticmethod
+    def cerrarsalir():
+        try:
+            var.dlgsalir.hide()
+        except Exception as error:
+            print('error abrir ventana acerca de', error)
+
+
+    @staticmethod
+    def mostrarsalir():
+        try:
+            var.dlgsalir.show()
+        except Exception as error:
+            print('error abrir ventana acerca de', error)
