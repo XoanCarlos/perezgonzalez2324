@@ -1,4 +1,5 @@
 import eventos, var, sys
+from drivers import *
 from MainWindow import *
 from CalendarWindow import *
 from dlgAcerca import *
@@ -20,7 +21,6 @@ class DlgAcerca(QtWidgets.QDialog):
         var.dlgacerca.setupUi(self)
         var.dlgacerca.btnCerrar.clicked.connect(eventos.Eventos.cerraracercade)
 
-
 class Calendar(QtWidgets.QDialog):
     def __init__(self):
         super(Calendar, self).__init__()
@@ -29,7 +29,6 @@ class Calendar(QtWidgets.QDialog):
         dia = datetime.now().day
         mes = datetime.now().month
         ano = datetime.now().year
-
 
 class Main(QtWidgets.QMainWindow):
 
@@ -40,7 +39,7 @@ class Main(QtWidgets.QMainWindow):
         var.calendar = Calendar()
         var.dlgacerca = DlgAcerca()
         var.dlgsalir = DlgSalir()
-
+        self.driver = Drivers()
 
         '''
        
@@ -48,13 +47,24 @@ class Main(QtWidgets.QMainWindow):
         '''
         var.ui.btnCalendar.clicked.connect(eventos.Eventos.abrirCalendar)
 
-
         """
         
-        zona de eventes del menubar
+        zona de eventos del menubar
         """
         var.ui.actionSalir.triggered.connect(eventos.Eventos.mostrarsalir)
         var.ui.actionAcerca_de.triggered.connect(eventos.Eventos.acercade)
+
+        '''
+        
+        zona eventos cajas de texto
+        '''
+        var.ui.txtDni.editingFinished.connect(Drivers.validarDNI)
+
+        '''
+        
+        ejecución de diferentes funciones al lanzar la aplicación
+        '''
+
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])

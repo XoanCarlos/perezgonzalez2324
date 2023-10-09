@@ -1,9 +1,11 @@
 import var, sys
+from PyQt6 import QtWidgets
 
 
 class Eventos():
     @staticmethod
     def salir(self):
+
         try:
             sys.exit(0)
         except Exception as error:
