@@ -1,5 +1,24 @@
 import var
+
 class Drivers():
+    def limpiapanel(self):
+        try:
+            listawidgets = [var.ui.txtDni, var.ui.txtDatadriver, var.ui.txtApel, var.ui.txtNome,
+                            var.ui.txtDirdriver, var.ui.txtMovil, var.ui.txtSalario, var.ui.lblValidardni ]
+
+            for i in listawidgets:
+                i.setText(None)
+
+        except Exception as error:
+            print('error limpia panel driver: ', error)
+    def cargaFecha(qDate):
+        try:
+            data = ('{:02d}/{:02d}/{:4d}'.format(qDate.day(), qDate.month(), qDate.year()))
+            var.ui.txtDatadriver.setText(str(data))
+            var.calendar.hide()
+        except Exception as error:
+            print("error en cargar fecha: ", error)
+
     @staticmethod
     def validarDNI(self = None):
         try:
@@ -21,12 +40,12 @@ class Drivers():
                 else:
                     var.ui.lblValidardni.setStyleSheet('color:red;') #y si no un aspa en color rojo
                     var.ui.lblValidardni.setText('X')
-                    var.ui.txtDni.setText("")
+                    var.ui.txtDni.setText(None)
                     var.ui.txtDni.setFocus()
             else:
                 var.ui.lblValidardni.setStyleSheet('color:red;')
                 var.ui.lblValidardni.setText('X')
-                var.ui.txtDni.setText("")
+                var.ui.txtDni.setText(None)
                 var.ui.txtDni.setFocus()
 
         except Exception as error:

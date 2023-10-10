@@ -13,7 +13,6 @@ class Eventos():
 
     @staticmethod
     def abrirCalendar(self):
-
         try:
             var.calendar.show()
         except Exception as error:
@@ -38,7 +37,6 @@ class Eventos():
             var.dlgsalir.hide()
         except Exception as error:
             print('error abrir ventana acerca de', error)
-
 
     @staticmethod
     def mostrarsalir():

@@ -1,3 +1,4 @@
+import drivers
 import eventos, var, sys
 from drivers import *
 from MainWindow import *
@@ -29,6 +30,8 @@ class Calendar(QtWidgets.QDialog):
         dia = datetime.now().day
         mes = datetime.now().month
         ano = datetime.now().year
+        var.calendar.Calendar.setSelectedDate((QtCore.QDate(ano,mes,dia)))
+        var.calendar.Calendar.clicked.connect(drivers.Drivers.cargaFecha)
 
 class Main(QtWidgets.QMainWindow):
 
@@ -61,7 +64,13 @@ class Main(QtWidgets.QMainWindow):
         var.ui.txtDni.editingFinished.connect(Drivers.validarDNI)
 
         '''
-        
+         eventos del toolbar
+        '''
+        var.ui.actionbarSalir.triggered.connect(eventos.Eventos.mostrarsalir)
+        var.ui.actionlimpiaPaneldriver.triggered.connect(drivers.Drivers.limpiapanel)
+
+        '''
+           
         ejecución de diferentes funciones al lanzar la aplicación
         '''
 
