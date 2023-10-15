@@ -1,7 +1,7 @@
 1. Cargar el combobox
 2. Planear un radio button (alta o baja) y un checkbox (carnets)
 3. tal vez un tooggle
-4. excel
+4. excel para cuando datos
 5. dimensionar a la pantalla
 6. controlar salida con X, se muestre el mensaje de salida
 7. abrir explorador
