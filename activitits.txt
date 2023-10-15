@@ -1,0 +1,10 @@
+1. Cargar el combobox
+2. Planear un radio button (alta o baja) y un checkbox (carnets)
+3. tal vez un tooggle
+4. excel
+5. dimensionar a la pantalla
+6. controlar salida con X, se muestre el mensaje de salida
+7. abrir explorador
+8. abrir ventana impresora
+9. listado
+10. reloj en status o fecha también, o avisos o algo
