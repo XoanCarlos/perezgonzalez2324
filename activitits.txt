@@ -3,8 +3,7 @@
 3. tal vez un tooggle
 4. excel para cuando datos
 5. dimensionar a la pantalla
-6. controlar salida con X, se muestre el mensaje de salida
 7. abrir explorador
 8. abrir ventana impresora
 9. listado
-10. reloj en status o fecha también, o avisos o algo
+10. reloj en status o fecha también, o avisos o axlgo

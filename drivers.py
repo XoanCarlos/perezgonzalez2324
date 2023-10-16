@@ -1,4 +1,4 @@
-import var
+import var, eventos
 
 class Drivers():
     def limpiapanel(self):

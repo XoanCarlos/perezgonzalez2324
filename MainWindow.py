@@ -228,6 +228,7 @@ class Ui_MainWindow(object):
         self.menuHelp.setObjectName("menuHelp")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(parent=MainWindow)
+        self.statusbar.setAutoFillBackground(False)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         self.toolBar = QtWidgets.QToolBar(parent=MainWindow)

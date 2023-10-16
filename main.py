@@ -3,6 +3,7 @@ from MainWindow import *
 from windowaux import *
 from dlgSalir import *
 import var, drivers, sys, eventos
+from datetime import datetime
 
 class Main(QtWidgets.QMainWindow):
 
@@ -41,9 +42,30 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionlimpiaPaneldriver.triggered.connect(drivers.Drivers.limpiapanel)
 
         '''
+        
+        statusbar
+        '''
+        fecha = str(datetime.now())
+
+        var.ui.statusbar.showMessage(fecha,1)
+
+        '''
            
         ejecución de diferentes funciones al lanzar la aplicación
         '''
+
+    def closeEvent(self, event):
+        # event.ignore()
+        # eventos.Eventos.mostrarsalir()
+
+        mbox = QtWidgets.QMessageBox.information(self, 'Salir', '¿Estás seguro de que quieres salir?',
+                                    QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
+
+        if mbox == QtWidgets.QMessageBox.StandardButton.Yes:
+            app.quit()
+        if mbox == QtWidgets.QMessageBox.StandardButton.No:
+            event.ignore()
+
 
 
 if __name__ == '__main__':
