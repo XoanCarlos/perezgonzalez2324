@@ -4,6 +4,11 @@ from windowaux import *
 from dlgSalir import *
 import var, drivers, sys, eventos
 from datetime import datetime
+import locale
+from PyQt6.QtCore import Qt
+
+# Establecer la configuración regional en español
+locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 
 class Main(QtWidgets.QMainWindow):
 
@@ -45,10 +50,15 @@ class Main(QtWidgets.QMainWindow):
         
         statusbar
         '''
-        fecha = str(datetime.now())
+               # Formatear la fecha según el formato deseadofecha_actual.strftime()
 
-        var.ui.statusbar.showMessage(fecha,1)
+        fecha = datetime.now().strftime("%A  -  " + "%d/%m/%Y")
+        self.labelstatus = QtWidgets.QLabel(fecha, self)
+        self.labelstatus.setAlignment(QtCore.Qt.AlignmentFlag.AlignHCenter)
+        var.ui.statusbar.addPermanentWidget(self.labelstatus,1)
 
+        #
+        var.ui.statusbar.showMessage(fecha)
         '''
            
         ejecución de diferentes funciones al lanzar la aplicación
@@ -57,7 +67,6 @@ class Main(QtWidgets.QMainWindow):
     def closeEvent(self, event):
         # event.ignore()
         # eventos.Eventos.mostrarsalir()
-
         mbox = QtWidgets.QMessageBox.information(self, 'Salir', '¿Estás seguro de que quieres salir?',
                                     QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
 
@@ -65,7 +74,6 @@ class Main(QtWidgets.QMainWindow):
             app.quit()
         if mbox == QtWidgets.QMessageBox.StandardButton.No:
             event.ignore()
-
 
 
 if __name__ == '__main__':

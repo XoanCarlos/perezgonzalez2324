@@ -36,9 +36,9 @@ class Eventos():
         except Exception as error:
             print('error abrir ventana acerca : ', error)
 
-    @staticmethod
-    def mostrarsalir():
+
+    def mostrarsalir(self):
         try:
             var.dlgsalir.show()
         except Exception as error:
-            print('error abrir ventana acerca : ', error)
+            print('error en mostrar ventana salir: ', error)

@@ -612,7 +612,7 @@
            <widget class="QLabel" name="lblMovil_2">
             <property name="geometry">
              <rect>
-              <x>250</x>
+              <x>220</x>
               <y>140</y>
               <width>60</width>
               <height>20</height>
@@ -646,7 +646,7 @@
            <widget class="QLineEdit" name="txtSalario">
             <property name="geometry">
              <rect>
-              <x>320</x>
+              <x>280</x>
               <y>140</y>
               <width>120</width>
               <height>20</height>
@@ -671,7 +671,7 @@
            <widget class="QLabel" name="label">
             <property name="geometry">
              <rect>
-              <x>450</x>
+              <x>410</x>
               <y>140</y>
               <width>21</width>
               <height>16</height>
@@ -748,6 +748,9 @@
   <widget class="QStatusBar" name="statusbar">
    <property name="autoFillBackground">
     <bool>false</bool>
+   </property>
+   <property name="sizeGripEnabled">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QToolBar" name="toolBar">
