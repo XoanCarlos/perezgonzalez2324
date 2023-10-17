@@ -3,15 +3,11 @@ from MainWindow import *
 from windowaux import *
 from dlgSalir import *
 import var, drivers, sys, eventos
-from datetime import datetime
-import locale
-from PyQt6.QtCore import Qt
-
 # Establecer la configuración regional en español
+import locale
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 
 class Main(QtWidgets.QMainWindow):
-
     def __init__(self):
         super(Main, self).__init__()
         var.ui = Ui_MainWindow()
@@ -20,6 +16,7 @@ class Main(QtWidgets.QMainWindow):
         var.dlgacerca = DlgAcerca()
         var.dlgsalir = DlgSalir()
         self.driver = Drivers()
+
 
         '''
        
@@ -46,23 +43,16 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionbarSalir.triggered.connect(eventos.Eventos.mostrarsalir)
         var.ui.actionlimpiaPaneldriver.triggered.connect(drivers.Drivers.limpiapanel)
 
-        '''
-        
-        statusbar
-        '''
-               # Formatear la fecha según el formato deseadofecha_actual.strftime()
 
-        fecha = datetime.now().strftime("%A  -  " + "%d/%m/%Y")
-        self.labelstatus = QtWidgets.QLabel(fecha, self)
-        self.labelstatus.setAlignment(QtCore.Qt.AlignmentFlag.AlignHCenter)
-        var.ui.statusbar.addPermanentWidget(self.labelstatus,1)
-
-        #
-        var.ui.statusbar.showMessage(fecha)
         '''
            
         ejecución de diferentes funciones al lanzar la aplicación
         '''
+        eventos.Eventos.cargastatusbar(self)
+        eventos.Eventos.cargaprov(self)
+        rbtDriver = [var.ui.rbtTodos, var.ui.rbtAlta, var.ui.rbtBaja]
+        for i in rbtDriver:
+            i.toggled.connect(eventos.Eventos.selEstado)
 
     def closeEvent(self, event):
         # event.ignore()
