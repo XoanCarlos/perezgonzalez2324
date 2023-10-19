@@ -1,5 +1,5 @@
 import var, eventos
-
+from PyQt6 import QtWidgets
 class Drivers():
     def limpiapanel(self):
         try:
@@ -9,6 +9,11 @@ class Drivers():
             for i in listawidgets:
                 i.setText(None)
 
+            chklicencia = [var.ui.chkA, var.ui.chkB, var.ui.chkC, var.ui.chkD]
+            for i in chklicencia:
+               i.setChecked(False)
+            var.ui.cmbProv.setCurrentText('')
+            var.ui.cmbMuni.setCurrentText('')
         except Exception as error:
             print('error limpia panel driver: ', error)
     def cargaFecha(qDate):
@@ -50,3 +55,32 @@ class Drivers():
 
         except Exception as error:
             print("error en validar dni ", error)
+
+    def altadriver(self):
+        try:
+            driver = [var.ui.txtApel, var.ui.txtNome, var.ui.txtMovil]
+            newdriver = []
+            newdriver.append(1)
+            for i in driver:
+                newdriver.append(i.text().title())
+            licencias = []
+            chklicencia = [var.ui.chkA, var.ui.chkB, var.ui.chkC, var.ui.chkD]
+            for i in chklicencia:
+                if i.isChecked():
+                    licencias.append(i.text())
+            newdriver.append('-'.join(licencias))
+            index = 0
+            var.ui.tabDrivers.setRowCount(index+1) #crea una fila
+            var.ui.tabDrivers.setItem(index,0,QtWidgets.QTableWidgetItem(str(newdriver[0])))
+            var.ui.tabDrivers.setItem(index, 1, QtWidgets.QTableWidgetItem(str(newdriver[1])))
+            var.ui.tabDrivers.setItem(index, 2, QtWidgets.QTableWidgetItem(str(newdriver[2])))
+            var.ui.tabDrivers.setItem(index, 3, QtWidgets.QTableWidgetItem(str(newdriver[3])))
+            var.ui.tabDrivers.setItem(index, 4, QtWidgets.QTableWidgetItem(str(newdriver[4])))
+
+
+
+
+            print(newdriver)
+
+        except Exception as error:
+            print("error alta cliente", error)

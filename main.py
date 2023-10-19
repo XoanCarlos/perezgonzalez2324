@@ -23,6 +23,7 @@ class Main(QtWidgets.QMainWindow):
         zona de eventos de botones
         '''
         var.ui.btnCalendar.clicked.connect(eventos.Eventos.abrirCalendar)
+        var.ui.btnAltaDriver.clicked.connect(drivers.Drivers.altadriver)
 
         """
         
@@ -42,6 +43,12 @@ class Main(QtWidgets.QMainWindow):
         '''
         var.ui.actionbarSalir.triggered.connect(eventos.Eventos.mostrarsalir)
         var.ui.actionlimpiaPaneldriver.triggered.connect(drivers.Drivers.limpiapanel)
+
+        '''
+        
+        eventos de tablas        
+        '''
+
 
 
         '''

@@ -48,7 +48,7 @@
      <widget class="QFrame" name="gridFrame">
       <layout class="QGridLayout" name="gridLayout">
        <item row="0" column="0">
-        <widget class="QTabWidget" name="tabPrincipal">
+        <widget class="QTabWidget" name="panelPrincipal">
          <property name="minimumSize">
           <size>
            <width>900</width>
@@ -65,7 +65,7 @@
          <property name="currentIndex">
           <number>0</number>
          </property>
-         <widget class="QWidget" name="tabDrivers">
+         <widget class="QWidget" name="panelDrivers">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -84,7 +84,7 @@
              <x>9</x>
              <y>20</y>
              <width>961</width>
-             <height>211</height>
+             <height>251</height>
             </rect>
            </property>
            <property name="sizePolicy">
@@ -646,7 +646,7 @@
            <widget class="QLineEdit" name="txtSalario">
             <property name="geometry">
              <rect>
-              <x>280</x>
+              <x>290</x>
               <y>140</y>
               <width>120</width>
               <height>20</height>
@@ -671,7 +671,7 @@
            <widget class="QLabel" name="label">
             <property name="geometry">
              <rect>
-              <x>410</x>
+              <x>420</x>
               <y>140</y>
               <width>21</width>
               <height>16</height>
@@ -783,7 +783,7 @@
              </size>
             </property>
             <property name="text">
-             <string>Estado:</string>
+             <string>Histórico:</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -802,7 +802,7 @@
              <string>Alta</string>
             </property>
             <attribute name="buttonGroup">
-             <string notr="true">grpEstado</string>
+             <string notr="true">buttonGroup</string>
             </attribute>
            </widget>
            <widget class="QRadioButton" name="rbtBaja">
@@ -818,7 +818,7 @@
              <string>Baja</string>
             </property>
             <attribute name="buttonGroup">
-             <string notr="true">grpEstado</string>
+             <string notr="true">buttonGroup</string>
             </attribute>
            </widget>
            <widget class="QRadioButton" name="rbtTodos">
@@ -833,9 +833,98 @@
             <property name="text">
              <string>Todos</string>
             </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
             <attribute name="buttonGroup">
-             <string notr="true">grpEstado</string>
+             <string notr="true">buttonGroup</string>
             </attribute>
+           </widget>
+           <widget class="QWidget" name="">
+            <property name="geometry">
+             <rect>
+              <x>290</x>
+              <y>220</y>
+              <width>341</width>
+              <height>26</height>
+             </rect>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <property name="sizeConstraint">
+              <enum>QLayout::SetMinimumSize</enum>
+             </property>
+             <item>
+              <widget class="QPushButton" name="btnAltaDriver">
+               <property name="minimumSize">
+                <size>
+                 <width>75</width>
+                 <height>20</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Alta</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Preferred</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnModifDriver">
+               <property name="minimumSize">
+                <size>
+                 <width>75</width>
+                 <height>20</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Modificar</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Preferred</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnBajaDriver">
+               <property name="minimumSize">
+                <size>
+                 <width>75</width>
+                 <height>20</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Baja</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </widget>
           <widget class="QSplitter" name="splitter">
@@ -850,6 +939,49 @@
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
+          </widget>
+          <widget class="QTableWidget" name="tabDrivers">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>290</y>
+             <width>961</width>
+             <height>321</height>
+            </rect>
+           </property>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+           <column>
+            <property name="text">
+             <string>Código</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Apellidos</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Nombre</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Móvil</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Licencias</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Fecha Baja</string>
+            </property>
+           </column>
           </widget>
          </widget>
          <widget class="QWidget" name="tab_2">
@@ -959,7 +1091,7 @@
   </action>
  </widget>
  <tabstops>
-  <tabstop>tabPrincipal</tabstop>
+  <tabstop>panelPrincipal</tabstop>
   <tabstop>txtDni</tabstop>
   <tabstop>txtDatadriver</tabstop>
   <tabstop>btnCalendar</tabstop>
@@ -974,6 +1106,6 @@
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="grpEstado"/>
+  <buttongroup name="buttonGroup"/>
  </buttongroups>
 </ui>
