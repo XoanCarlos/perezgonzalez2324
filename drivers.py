@@ -1,5 +1,5 @@
 import var, eventos
-from PyQt6 import QtWidgets
+from PyQt6 import QtWidgets, QtCore
 class Drivers():
     def limpiapanel(self):
         try:
@@ -76,11 +76,9 @@ class Drivers():
             var.ui.tabDrivers.setItem(index, 2, QtWidgets.QTableWidgetItem(str(newdriver[2])))
             var.ui.tabDrivers.setItem(index, 3, QtWidgets.QTableWidgetItem(str(newdriver[3])))
             var.ui.tabDrivers.setItem(index, 4, QtWidgets.QTableWidgetItem(str(newdriver[4])))
-
-
-
-
-            print(newdriver)
+            var.ui.tabDrivers.item(index,0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            var.ui.tabDrivers.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            var.ui.tabDrivers.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
 
         except Exception as error:
             print("error alta cliente", error)

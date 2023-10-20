@@ -1,6 +1,9 @@
-import var, sys
 from PyQt6 import QtWidgets,QtCore
 from datetime import datetime
+import var, sys, locale
+# Establecer la configuración regional en español
+locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
+locale.setlocale(locale.LC_MONETARY, 'es_ES.UTF-8')
 
 class Eventos():
     @staticmethod
@@ -79,3 +82,30 @@ class Eventos():
             print('pulsaste alta')
         elif var.ui.rbtBaja.isChecked():
             print('pulsaste baja')
+
+    def resizeTabdrivers(self):
+        try:
+            header = var.ui.tabDrivers.horizontalHeader()
+            for i in range(5):
+                if i == 0 or i == 4 or i == 3:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+                elif i == 1 or i == 2:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
+
+        except Exception as error:
+            print('error resize en tab drivers', error)
+    @staticmethod
+    def formatCajatexto(self = None):
+        try:
+            var.ui.txtApel.setText(var.ui.txtApel.text().title())
+            var.ui.txtNome.setText(var.ui.txtNome.text().title())
+            var.ui.txtSalario.setText(str(locale.currency(float(var.ui.txtSalario.text()))))
+        except Exception as error:
+            print('error poner letra capital cajas text', error)
+
+
+
+
+
+
+

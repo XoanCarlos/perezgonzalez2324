@@ -6,6 +6,7 @@ import var, drivers, sys, eventos
 # Establecer la configuración regional en español
 import locale
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
+locale.setlocale(locale.LC_MONETARY, 'es_ES.UTF-8')
 
 class Main(QtWidgets.QMainWindow):
     def __init__(self):
@@ -37,6 +38,9 @@ class Main(QtWidgets.QMainWindow):
         zona eventos cajas de texto
         '''
         var.ui.txtDni.editingFinished.connect(Drivers.validarDNI)
+        var.ui.txtNome.editingFinished.connect(eventos.Eventos.formatCajatexto)
+        var.ui.txtApel.editingFinished.connect(eventos.Eventos.formatCajatexto)
+        var.ui.txtSalario.editingFinished.connect(eventos.Eventos.formatCajatexto)
 
         '''
          eventos del toolbar
@@ -48,8 +52,7 @@ class Main(QtWidgets.QMainWindow):
         
         eventos de tablas        
         '''
-
-
+        eventos.Eventos.resizeTabdrivers(self)
 
         '''
            
