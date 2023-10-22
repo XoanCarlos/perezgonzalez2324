@@ -8,6 +8,7 @@ import locale
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 locale.setlocale(locale.LC_MONETARY, 'es_ES.UTF-8')
 
+
 class Main(QtWidgets.QMainWindow):
     def __init__(self):
         super(Main, self).__init__()
@@ -17,7 +18,6 @@ class Main(QtWidgets.QMainWindow):
         var.dlgacerca = DlgAcerca()
         var.dlgsalir = DlgSalir()
         self.driver = Drivers()
-
 
         '''
        
@@ -60,15 +60,15 @@ class Main(QtWidgets.QMainWindow):
         '''
         eventos.Eventos.cargastatusbar(self)
         eventos.Eventos.cargaprov(self)
-        rbtDriver = [var.ui.rbtTodos, var.ui.rbtAlta, var.ui.rbtBaja]
-        for i in rbtDriver:
+        rbtdriver = [var.ui.rbtTodos, var.ui.rbtAlta, var.ui.rbtBaja]
+        for i in rbtdriver:
             i.toggled.connect(eventos.Eventos.selEstado)
 
     def closeEvent(self, event):
         # event.ignore()
         # eventos.Eventos.mostrarsalir()
         mbox = QtWidgets.QMessageBox.information(self, 'Salir', '¿Estás seguro de que quieres salir?',
-                                    QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
+            QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
 
         if mbox == QtWidgets.QMessageBox.StandardButton.Yes:
             app.quit()
@@ -79,5 +79,5 @@ class Main(QtWidgets.QMainWindow):
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])
     window = Main()
-    window.show()
+    window.showMaximized()
     sys.exit(app.exec())
