@@ -1,16 +1,8 @@
 from CalendarWindow import *
 from dlgAcerca import *
-from dlgSalir import *
 from datetime import datetime
 import var, drivers, eventos
 
-class DlgSalir(QtWidgets.QDialog):
-    def __init__(self):
-        super(DlgSalir, self).__init__()
-        var.dlgsalir = Ui_dlgSalir()
-        var.dlgsalir.setupUi(self)
-        var.dlgsalir.btnSalir.clicked.connect(eventos.Eventos.salir)
-        var.dlgsalir.btnCancelar.clicked.connect(eventos.Eventos.cerrarsalir)
 
 class DlgAcerca(QtWidgets.QDialog):
     def __init__(self):

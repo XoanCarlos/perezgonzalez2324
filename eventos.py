@@ -7,13 +7,6 @@ locale.setlocale(locale.LC_MONETARY, 'es_ES.UTF-8')
 
 class Eventos():
     @staticmethod
-    def salir(self):
-        try:
-            sys.exit(0)
-        except Exception as error:
-            print("Error en abrir módulo eventos: ", error)
-
-    @staticmethod
     def abrirCalendar(self):
         try:
             var.calendar.show()
@@ -33,19 +26,15 @@ class Eventos():
         except Exception as error:
             print('error abrir ventana acerca: ', error)
 
-    @staticmethod
-    def cerrarsalir():
-        try:
-            var.dlgsalir.hide()
-        except Exception as error:
-            print('error abrir ventana acerca : ', error)
-
 
     def mostrarsalir(self):
-        try:
-            var.dlgsalir.show()
-        except Exception as error:
-            print('error en mostrar ventana salir: ', error)
+        mbox = QtWidgets.QMessageBox.question(None, 'Salir', '¿Estás seguro que quieres salir?',
+                                              QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
+
+        if mbox == QtWidgets.QMessageBox.StandardButton.Yes:
+            sys.exit()
+        else:
+            return False
 
 
     def cargastatusbar(self):
@@ -64,16 +53,6 @@ class Eventos():
             var.ui.statusbar.addPermanentWidget(self.labelstatusversion, 0)
         except Exception as error:
             print('Error cargar el statusbar: ', error)
-
-    def cargaprov(self = None):
-        try:
-            prov = ['A Coruña', 'Lugo', 'Vigo', 'Ferrol', 'Santiago de Compostela', 'Ourense', 'Pontevedra']
-            var.ui.cmbProv.clear()
-            var.ui.cmbProv.addItem('')
-            for i,m in enumerate(prov):
-                var.ui.cmbProv.addItem(str(m))
-        except Exception as error:
-            print('error en la carga del combo prov', error)
 
     def selEstado(self):
         if var.ui.rbtTodos.isChecked():

@@ -1,7 +1,7 @@
+import conexion
 from drivers import *
 from MainWindow import *
 from windowaux import *
-from dlgSalir import *
 import var, drivers, sys, eventos
 # Establecer la configuración regional en español
 import locale
@@ -16,8 +16,9 @@ class Main(QtWidgets.QMainWindow):
         var.ui.setupUi(self)
         var.calendar = Calendar()
         var.dlgacerca = DlgAcerca()
-        var.dlgsalir = DlgSalir()
         self.driver = Drivers()
+        conexion.Conexion.conexion()
+        conexion.Conexion.cargaprov()
 
         '''
        
@@ -59,7 +60,6 @@ class Main(QtWidgets.QMainWindow):
         ejecución de diferentes funciones al lanzar la aplicación
         '''
         eventos.Eventos.cargastatusbar(self)
-        eventos.Eventos.cargaprov(self)
         rbtdriver = [var.ui.rbtTodos, var.ui.rbtAlta, var.ui.rbtBaja]
         for i in rbtdriver:
             i.toggled.connect(eventos.Eventos.selEstado)
