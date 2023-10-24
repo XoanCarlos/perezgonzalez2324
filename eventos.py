@@ -28,9 +28,12 @@ class Eventos():
 
 
     def mostrarsalir(self):
-        mbox = QtWidgets.QMessageBox.question(None, 'Salir', '¿Estás seguro que quieres salir?',
-                                              QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
 
+        #mbox = QtWidgets.QMessageBox.question(None, 'Salir', '¿Estás seguro que quieres salir?',
+                                             # QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
+
+        mbox = QtWidgets.QMessageBox.question(None, 'Salir', '¿Estás seguro que quieres salir?')
+        yes_button = mbox.addButton("Sí", QtWidgets.QMessageBox.YesRole)
         if mbox == QtWidgets.QMessageBox.StandardButton.Yes:
             sys.exit()
         else:
