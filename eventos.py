@@ -2,8 +2,8 @@ from PyQt6 import QtWidgets,QtCore
 from datetime import datetime
 import var, sys, locale
 # Establecer la configuración regional en español
-locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
-locale.setlocale(locale.LC_MONETARY, 'es_ES.UTF-8')
+locale.setlocale(locale.LC_TIME, 'es_ES')
+locale.setlocale(locale.LC_MONETARY, 'es_ES')
 
 class Eventos():
     @staticmethod
@@ -81,9 +81,48 @@ class Eventos():
         try:
             var.ui.txtApel.setText(var.ui.txtApel.text().title())
             var.ui.txtNome.setText(var.ui.txtNome.text().title())
-            var.ui.txtSalario.setText(str(locale.currency(float(var.ui.txtSalario.text()))))
+            salario = var.ui.txtSalario.text()
+            valores = "1234567890."
+            for n in salario:
+                if n in valores:
+                    pass
+                else:
+                    msg = QtWidgets.QMessageBox()
+                    msg.setWindowTitle('Aviso')
+                    msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                    msg.setText('Valor de Salario incorrect (00000000.00')
+                    msg.exec()
+                    var.ui.txtSalario.setText("")
+                    break
+            var.ui.txtSalario.setText(str(locale.currency(float(var.ui.txtSalario.text()),grouping=True)))
         except Exception as error:
             print('error poner letra capital cajas text', error)
+
+    def formatCajamovil(self=None):
+        try:
+            var.ui.txtApel.setText(var.ui.txtApel.text().title())
+            var.ui.txtNome.setText(var.ui.txtNome.text().title())
+            movil = var.ui.txtMovil.text()
+            valorm = "1234567890"
+            for n in movil:
+                if n in valorm and len(movil) == 9:
+                    pass
+                else:
+                    msg = QtWidgets.QMessageBox()
+                    msg.setWindowTitle('Aviso')
+                    msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                    msg.setText('Escriba un número de móvil correcto')
+                    msg.exec()
+                    var.ui.txtMovil.setText("")
+                    break
+        except Exception as error:
+            print('error poner movil', error)
+
+
+
+
+
+
 
 
 

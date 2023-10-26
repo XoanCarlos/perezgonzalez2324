@@ -39,7 +39,7 @@ class Drivers():
                 dni = dni[:8]           #tomo los números del dni
                 if dni[0] in dig_ext:
                     dni = dni.replace(dni[0], reemp_dig_ext[dni[0]])
-                if len(dni) == len([n for n in dni if n in numeros]) and tabla[int(dni) %23] == dig_control:
+                if len(dni) == len([n for n in dni if n in numeros]) and tabla[int(dni) % 23] == dig_control:
                     var.ui.lblValidardni.setStyleSheet('color:green;') # si es válido se pone una V en color verde
                     var.ui.lblValidardni.setText('V')
                 else:

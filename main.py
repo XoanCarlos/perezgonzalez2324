@@ -42,6 +42,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.txtNome.editingFinished.connect(eventos.Eventos.formatCajatexto)
         var.ui.txtApel.editingFinished.connect(eventos.Eventos.formatCajatexto)
         var.ui.txtSalario.editingFinished.connect(eventos.Eventos.formatCajatexto)
+        var.ui.txtMovil.editingFinished.connect(eventos.Eventos.formatCajamovil)
 
         '''
          eventos del toolbar

@@ -1,6 +1,5 @@
 3. tal vez un tooggle
 4. excel para cuando datos
-5. dimensionar a la pantalla
 7. abrir explorador
 8. abrir ventana impresora
-10. reloj en status o fecha también, o avisos o axlgo
+10. reloj en status
