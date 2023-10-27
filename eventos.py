@@ -27,17 +27,22 @@ class Eventos():
             print('error abrir ventana acerca: ', error)
 
 
-    def mostrarsalir(self):
+    def mostrarsalir(self=None):
 
-        #mbox = QtWidgets.QMessageBox.question(None, 'Salir', '¿Estás seguro que quieres salir?',
-                                             # QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
+        mbox = QtWidgets.QMessageBox()
+        mbox.setWindowTitle('Confirmar Salida')
+        mbox.setIcon(QtWidgets.QMessageBox.Icon.Question)
+        mbox.setText('¿Está seguro de que desea salir?')
+        mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
+        mbox.button(QtWidgets.QMessageBox.StandardButton.Yes).setText('Si')
+        mbox.button(QtWidgets.QMessageBox.StandardButton.No).setText('No')
+        mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Yes)
+        mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.No)
 
-        mbox = QtWidgets.QMessageBox.question(None, 'Salir', '¿Estás seguro que quieres salir?')
-        yes_button = mbox.addButton("Sí", QtWidgets.QMessageBox.YesRole)
-        if mbox == QtWidgets.QMessageBox.StandardButton.Yes:
+        if mbox.exec() == QtWidgets.QMessageBox.StandardButton.Yes:
             sys.exit()
         else:
-            return False
+            mbox.hide()
 
 
     def cargastatusbar(self):
@@ -89,12 +94,15 @@ class Eventos():
                 else:
                     msg = QtWidgets.QMessageBox()
                     msg.setWindowTitle('Aviso')
-                    msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                    msg.setText('Valor de Salario incorrect (00000000.00')
+                    msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                    msg.setText('Valor de Salario Incorrecto (00000000.00)')
+                    msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                    msg.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                    msg.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
                     msg.exec()
                     var.ui.txtSalario.setText("")
                     break
-            var.ui.txtSalario.setText(str(locale.currency(float(var.ui.txtSalario.text()),grouping=True)))
+            var.ui.txtSalario.setText(str(locale.currency(round(float(var.ui.txtSalario.text()),2),grouping=True)))
         except Exception as error:
             print('error poner letra capital cajas text', error)
 
@@ -110,8 +118,11 @@ class Eventos():
                 else:
                     msg = QtWidgets.QMessageBox()
                     msg.setWindowTitle('Aviso')
-                    msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                    msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
                     msg.setText('Escriba un número de móvil correcto')
+                    msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                    msg.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                    msg.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
                     msg.exec()
                     var.ui.txtMovil.setText("")
                     break
