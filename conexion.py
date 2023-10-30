@@ -23,3 +23,25 @@ class Conexion():
                     var.ui.cmbProv.addItem(query.value(0))
         except Exception as error:
             print('error en la carga del combo prov', error)
+
+
+    def selMuni(self=None):
+        try:
+            id = 0;
+            var.ui.cmbMuni.clear()
+            prov = var.ui.cmbProv.currentText()
+            query = QtSql.QSqlQuery()
+            query.prepare('select idprov from provincias where provincia = :prov')
+            query.bindValue(':prov', prov)
+            if query.exec():
+                while query.next():
+                    id = query.value(0)
+            query1 = QtSql.QSqlQuery()
+            query1.prepare('select municipio from municipios where idprov = :id')
+            query1.bindValue(':id', int(id))
+            if query1.exec():
+                var.ui.cmbMuni.addItem('')
+                while query1.next():
+                    var.ui.cmbMuni.addItem(query1.value(0))
+        except Exception as error:
+            print('error seleccion municipios: ', error)

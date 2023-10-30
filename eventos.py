@@ -31,7 +31,7 @@ class Eventos():
 
         mbox = QtWidgets.QMessageBox()
         mbox.setWindowTitle('Confirmar Salida')
-        mbox.setIcon(QtWidgets.QMessageBox.Icon.Question)
+        mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
         mbox.setText('¿Está seguro de que desea salir?')
         mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
         mbox.button(QtWidgets.QMessageBox.StandardButton.Yes).setText('Si')
