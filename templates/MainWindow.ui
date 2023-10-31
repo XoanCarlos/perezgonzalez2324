@@ -33,8 +33,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>img/logo.ico</normaloff>
-    <normalon>img/logo.ico</normalon>img/logo.ico</iconset>
+    <normaloff>../img/logo.ico</normaloff>../img/logo.ico</iconset>
   </property>
   <property name="iconSize">
    <size>
@@ -1335,6 +1334,30 @@
    </property>
   </action>
  </widget>
+ <tabstops>
+  <tabstop>panelPrincipal</tabstop>
+  <tabstop>txtDni</tabstop>
+  <tabstop>txtDatadriver</tabstop>
+  <tabstop>btnCalendar</tabstop>
+  <tabstop>txtApel</tabstop>
+  <tabstop>txtNome</tabstop>
+  <tabstop>txtDirdriver</tabstop>
+  <tabstop>cmbProv</tabstop>
+  <tabstop>cmbMuni</tabstop>
+  <tabstop>txtMovil</tabstop>
+  <tabstop>txtSalario</tabstop>
+  <tabstop>chkA</tabstop>
+  <tabstop>chkB</tabstop>
+  <tabstop>chkC</tabstop>
+  <tabstop>chkD</tabstop>
+  <tabstop>btnAltaDriver</tabstop>
+  <tabstop>btnModifDriver</tabstop>
+  <tabstop>btnBajaDriver</tabstop>
+  <tabstop>rbtTodos</tabstop>
+  <tabstop>rbtAlta</tabstop>
+  <tabstop>rbtBaja</tabstop>
+  <tabstop>tabDrivers</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

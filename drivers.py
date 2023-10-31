@@ -73,8 +73,7 @@ class Drivers():
                 if i.isChecked():
                     licencias.append(i.text())
             newdriver.append('-'.join(licencias))
-            print(newdriver)
-            #conexion.Conexion.guardarcli(newdriver)
+            conexion.Conexion.guardardri(newdriver)
 
             '''
             index = 0
