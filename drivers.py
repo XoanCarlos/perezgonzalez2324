@@ -75,18 +75,24 @@ class Drivers():
             newdriver.append('-'.join(licencias))
             conexion.Conexion.guardardri(newdriver)
 
-            '''
+        except Exception as error:
+            print("error alta cliente", error)
+
+    def cargartabladri(registros):
+        try:
             index = 0
-            var.ui.tabDrivers.setRowCount(index+1) #crea una fila
-            var.ui.tabDrivers.setItem(index,0,QtWidgets.QTableWidgetItem(str(newdriver[0])))
-            var.ui.tabDrivers.setItem(index, 1, QtWidgets.QTableWidgetItem(str(newdriver[1])))
-            var.ui.tabDrivers.setItem(index, 2, QtWidgets.QTableWidgetItem(str(newdriver[2])))
-            var.ui.tabDrivers.setItem(index, 3, QtWidgets.QTableWidgetItem(str(newdriver[3])))
-            var.ui.tabDrivers.setItem(index, 4, QtWidgets.QTableWidgetItem(str(newdriver[4])))
-            var.ui.tabDrivers.item(index,0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-            var.ui.tabDrivers.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-            var.ui.tabDrivers.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-            '''
+            for registro in registros:
+                var.ui.tabDrivers.setRowCount(index+1) #crea una fila
+                var.ui.tabDrivers.setItem(index,0,QtWidgets.QTableWidgetItem(str(registro[0])))
+                var.ui.tabDrivers.setItem(index, 1, QtWidgets.QTableWidgetItem(str(registro[1])))
+                var.ui.tabDrivers.setItem(index, 2, QtWidgets.QTableWidgetItem(str(registro[2])))
+                var.ui.tabDrivers.setItem(index, 3, QtWidgets.QTableWidgetItem(str(registro[3])))
+                var.ui.tabDrivers.setItem(index, 4, QtWidgets.QTableWidgetItem(str(registro[4])))
+                var.ui.tabDrivers.item(index,0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tabDrivers.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tabDrivers.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                index += 1
 
         except Exception as error:
             print("error alta cliente", error)
+

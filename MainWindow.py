@@ -375,6 +375,14 @@ class Ui_MainWindow(object):
         self.tabDrivers.setSizePolicy(sizePolicy)
         self.tabDrivers.setMinimumSize(QtCore.QSize(400, 350))
         self.tabDrivers.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.tabDrivers.setStyleSheet("QHeaderView::section:horizontal\n"
+"{\n"
+"border-top: 1px solid #ffffff;\n"
+"color: \'white\';\n"
+"font: 11pt \"Arial\";\n"
+"background-color:rgb(100,100,100);\n"
+"}\n"
+"")
         self.tabDrivers.setAlternatingRowColors(True)
         self.tabDrivers.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectionBehavior.SelectRows)
         self.tabDrivers.setObjectName("tabDrivers")

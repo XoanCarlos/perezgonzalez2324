@@ -50,7 +50,8 @@ class Conexion():
     def guardardri(newdriver):
         try:
 
-            if (newdriver[0].strip() == "" or newdriver[1].strip() == "" or newdriver[2].strip() == "" or newdriver[3].strip() == "" or newdriver[7].strip() == ""):
+            if (newdriver[0].strip() == "" or newdriver[1].strip() == "" or newdriver[2].strip() == ""
+                    or newdriver[3].strip() == "" or newdriver[7].strip() == ""):
                 mbox = QtWidgets.QMessageBox()
                 mbox.setWindowTitle('Aviso')
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
@@ -84,6 +85,12 @@ class Conexion():
                     mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
                     mbox.setText(query.lastError().text())
                     mbox.exec()
+                Conexion.mostrardrivers(self = None)
+        except Exception as error:
+            print("error en alta conductor ", error)
+
+    def mostrardrivers(self):
+        try:
             registros = []
             query1 = QtSql.QSqlQuery()
             query1.prepare("select codigo, apeldri, nombredri, movildri, "
@@ -92,7 +99,7 @@ class Conexion():
                 while query1.next():
                     row = [query1.value(i) for i in range(query1.record().count())]
                     registros.append(row)
-            print(registros)
-            #drivers.Drivers.cargartabla(registros)
+            drivers.Drivers.cargartabladri(registros)
+
         except Exception as error:
-            print("error en alta conductor ", error)
+            print('error mostrar resultados', error)

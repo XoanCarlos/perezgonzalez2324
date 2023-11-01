@@ -19,6 +19,7 @@ class Main(QtWidgets.QMainWindow):
         self.driver = Drivers()
         conexion.Conexion.conexion()
         conexion.Conexion.cargaprov()
+        conexion.Conexion.mostrardrivers(self)
 
         '''
        
