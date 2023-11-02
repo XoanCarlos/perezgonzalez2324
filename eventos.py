@@ -1,4 +1,4 @@
-from PyQt6 import QtWidgets,QtCore
+from PyQt6 import QtWidgets,QtCore, QtGui
 from datetime import datetime
 import var, sys, locale
 # Establecer la configuración regional en español
@@ -32,6 +32,7 @@ class Eventos():
         mbox = QtWidgets.QMessageBox()
         mbox.setWindowTitle('Confirmar Salida')
         mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+        mbox.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
         mbox.setText('¿Está seguro de que desea salir?')
         mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
         mbox.button(QtWidgets.QMessageBox.StandardButton.Yes).setText('Si')
@@ -95,6 +96,7 @@ class Eventos():
                     msg = QtWidgets.QMessageBox()
                     msg.setWindowTitle('Aviso')
                     msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                    msg.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
                     msg.setText('Valor de Salario Incorrecto (00000000.00)')
                     msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
                     msg.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
@@ -119,6 +121,7 @@ class Eventos():
                     msg = QtWidgets.QMessageBox()
                     msg.setWindowTitle('Aviso')
                     msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                    msg.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
                     msg.setText('Escriba un número de móvil correcto')
                     msg.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
                     msg.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')

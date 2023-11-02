@@ -1,4 +1,4 @@
-from PyQt6 import QtWidgets, QtSql, QtCore
+from PyQt6 import QtWidgets, QtSql, QtGui
 import var,drivers
 
 class Conexion():
@@ -49,11 +49,11 @@ class Conexion():
     @staticmethod
     def guardardri(newdriver):
         try:
-
             if (newdriver[0].strip() == "" or newdriver[1].strip() == "" or newdriver[2].strip() == ""
                     or newdriver[3].strip() == "" or newdriver[7].strip() == ""):
                 mbox = QtWidgets.QMessageBox()
                 mbox.setWindowTitle('Aviso')
+                mbox.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
                 mensaje = 'Faltan Datos. Debe introducir al menos:\n\nDNI, Apellidos, Nombre, Fecha de alta y Móvil'
                 mbox.setText(mensaje)
@@ -76,12 +76,14 @@ class Conexion():
                 if query.exec():
                     mbox = QtWidgets.QMessageBox()
                     mbox.setWindowTitle('Aviso')
+                    mbox.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
                     mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
                     mbox.setText("Empleado dado de alta")
                     mbox.exec()
                 else:
                     mbox = QtWidgets.QMessageBox()
                     mbox.setWindowTitle('Aviso')
+                    mbox.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
                     mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
                     mbox.setText(query.lastError().text())
                     mbox.exec()
@@ -97,9 +99,10 @@ class Conexion():
                            " carnet, bajadri from drivers")
             if query1.exec():
                 while query1.next():
-                    row = [query1.value(i) for i in range(query1.record().count())]
+                    row = [query1.value(i) for i in range(query1.record().count())]   # función lambda
                     registros.append(row)
             drivers.Drivers.cargartabladri(registros)
+            print(registros)
 
         except Exception as error:
             print('error mostrar resultados', error)

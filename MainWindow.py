@@ -368,6 +368,7 @@ class Ui_MainWindow(object):
         self.gridLayout_10.addItem(spacerItem16, 0, 2, 1, 1)
         self.gridLayout.addWidget(self.frngestdrive, 1, 1, 1, 1)
         self.tabDrivers = QtWidgets.QTableWidget(parent=self.panelDrivers)
+        self.tabDrivers.setEnabled(True)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(2)
         sizePolicy.setVerticalStretch(2)
@@ -383,7 +384,9 @@ class Ui_MainWindow(object):
 "background-color:rgb(100,100,100);\n"
 "}\n"
 "")
+        self.tabDrivers.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers)
         self.tabDrivers.setAlternatingRowColors(True)
+        self.tabDrivers.setSelectionMode(QtWidgets.QAbstractItemView.SelectionMode.ExtendedSelection)
         self.tabDrivers.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectionBehavior.SelectRows)
         self.tabDrivers.setObjectName("tabDrivers")
         self.tabDrivers.setColumnCount(6)
