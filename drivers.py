@@ -3,7 +3,7 @@ from PyQt6 import QtWidgets, QtCore
 class Drivers():
     def limpiapanel(self):
         try:
-            listawidgets = [var.ui.txtDni, var.ui.txtDatadriver, var.ui.txtApel, var.ui.txtNome,
+            listawidgets = [var.ui.lblcodbd, var.ui.txtDni, var.ui.txtDatadriver, var.ui.txtApel, var.ui.txtNome,
                             var.ui.txtDirdriver, var.ui.txtMovil, var.ui.txtSalario, var.ui.lblValidardni ]
 
             for i in listawidgets:
@@ -102,14 +102,23 @@ class Drivers():
             row = var.ui.tabDrivers.selectedItems()
             fila = [ dato.text() for dato in row]
             registro = conexion.Conexion.onedriver(fila[0])
-            print(registro)
             datos = [var.ui.lblcodbd, var.ui.txtDni, var.ui.txtDatadriver, var.ui.txtApel, var.ui.txtNome,
             var.ui.txtDirdriver, var.ui.cmbProv, var.ui.cmbMuni, var.ui.txtMovil, var.ui.txtSalario ]
+            '''
+            OJO CON LIMPIAR ME QUEDA EL CÓDIGO
             j = 0
             for i in datos:
-                i.setText(str(registro[j]))
-                j = j + 1
-                if j == 6:
+                if j == 6 or j == 7:
                     i.setCurrentText(str(registro[j]))
+                else:
+                    i.setText(str(registro[j]))
+                j = j + 1
+            '''
+            for j, dato in enumerate(datos):
+                if j == 6 or j == 7:
+                    dato.setCurrentText(str(registro[j]))
+                else:
+                    dato.setText(str(registro[j]))
+
         except Exception as error:
             print('error cargar datos de 1 cliente marcando en la tabla: ', error)
