@@ -96,3 +96,20 @@ class Drivers():
         except Exception as error:
             print("error alta cliente", error)
 
+    def cargadriver(self):
+        try:
+            Drivers.limpiapanel(self)
+            row = var.ui.tabDrivers.selectedItems()
+            fila = [ dato.text() for dato in row]
+            registro = conexion.Conexion.onedriver(fila[0])
+            print(registro)
+            datos = [var.ui.lblcodbd, var.ui.txtDni, var.ui.txtDatadriver, var.ui.txtApel, var.ui.txtNome,
+            var.ui.txtDirdriver, var.ui.cmbProv, var.ui.cmbMuni, var.ui.txtMovil, var.ui.txtSalario ]
+            j = 0
+            for i in datos:
+                i.setText(str(registro[j]))
+                j = j + 1
+                if j == 6:
+                    i.setCurrentText(str(registro[j]))
+        except Exception as error:
+            print('error cargar datos de 1 cliente marcando en la tabla: ', error)

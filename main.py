@@ -51,11 +51,13 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionbarSalir.triggered.connect(eventos.Eventos.mostrarsalir)
         var.ui.actionlimpiaPaneldriver.triggered.connect(drivers.Drivers.limpiapanel)
 
+
         '''
         
         eventos de tablas        
         '''
         eventos.Eventos.resizeTabdrivers(self)
+        var.ui.tabDrivers.clicked.connect(drivers.Drivers.cargadriver)
 
         '''
         
