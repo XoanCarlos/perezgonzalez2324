@@ -1,5 +1,9 @@
 from PyQt6 import QtWidgets, QtSql, QtGui
-import var,drivers
+
+import drivers
+import var
+import sqlite3
+
 
 class Conexion():
     def conexion(self = None):
@@ -24,10 +28,9 @@ class Conexion():
         except Exception as error:
             print('error en la carga del combo prov', error)
 
-
     def selMuni(self=None):
         try:
-            id = 0;
+            id = 0
             var.ui.cmbMuni.clear()
             prov = var.ui.cmbProv.currentText()
             query = QtSql.QSqlQuery()
@@ -85,12 +88,11 @@ class Conexion():
                     mbox.setWindowTitle('Aviso')
                     mbox.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
                     mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-                    mbox.setText(query.lastError().text())
+                    mbox.setText("Asegúrese de que el conductor no existe")
                     mbox.exec()
-                Conexion.mostrardrivers(self = None)
-        except Exception as error:
-            print("error en alta conductor ", error)
-
+                Conexion.mostrardrivers(self=None)
+        except Exception as e:
+                print("otro error", e)
     def mostrardrivers(self):
         try:
             registros = []
@@ -120,3 +122,17 @@ class Conexion():
 
         except Exception as error:
             print('error en fichero conexion datos de 1 driver: ', error)
+
+    def codDri(dni):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare('select codigo from drivers where dnidri = :dnidri')
+            query.bindValue(':dnidri', str(dni))
+            if query.exec():
+                while query.next():
+                    codigo = query.value(0)
+            registro = Conexion.onedriver(codigo)
+            return registro
+
+        except Exception as error:
+            print(error, "en busca de código de un conductor")

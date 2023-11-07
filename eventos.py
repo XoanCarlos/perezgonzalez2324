@@ -1,6 +1,11 @@
-from PyQt6 import QtWidgets,QtCore, QtGui
 from datetime import datetime
-import var, sys, locale
+
+from PyQt6 import QtWidgets, QtCore, QtGui
+
+import locale
+import sys
+import var
+
 # Establecer la configuración regional en español
 locale.setlocale(locale.LC_TIME, 'es_ES')
 locale.setlocale(locale.LC_MONETARY, 'es_ES')
@@ -47,11 +52,6 @@ class Eventos():
 
 
     def cargastatusbar(self):
-        '''
-
-        Formatear la fecha según el formato deseadofecha_actual.strftime()
-        statusbar
-        '''
         try:
             fecha = datetime.now().strftime("%A  -  " + "%d/%m/%Y")
             self.labelstatus = QtWidgets.QLabel(fecha, self)
@@ -131,16 +131,4 @@ class Eventos():
                     break
         except Exception as error:
             print('error poner movil', error)
-
-
-
-
-
-
-
-
-
-
-
-
 
