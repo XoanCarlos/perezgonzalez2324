@@ -1,4 +1,4 @@
-from PyQt6 import QtWidgets, QtCore
+from PyQt6 import QtWidgets, QtCore, QtGui
 
 import conexion
 import var
@@ -115,6 +115,7 @@ class Drivers():
             dni = var.ui.txtDni.text()
             registro = conexion.Conexion.codDri(dni)
             Drivers.cargardatos(registro)
+
         except Exception as error:
             print(error, "en busca de datos de un conductor")
 

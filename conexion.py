@@ -131,8 +131,13 @@ class Conexion():
             if query.exec():
                 while query.next():
                     codigo = query.value(0)
-            registro = Conexion.onedriver(codigo)
-            return registro
+                    print('hola1')
+                if codigo is not None:
+                    print('hola2')
+                    registro = Conexion.onedriver(codigo)
+                    return registro
+                else:
+                    print('error')
 
         except Exception as error:
             print(error, "en busca de código de un conductor")

@@ -1,0 +1,11 @@
+ def buscarDriverTabla(codigo):
+        try:
+            tabla = var.ui.tabDrivers
+            for fila in range(tabla.rowCount()):
+                item = tabla.item(fila, 0)
+                valorCelda = item.text()
+                if valorCelda == str(codigo):
+                    tabla.selectRow(fila)
+                    tabla.scrollToItem(item)
+        except Exception as error:
+            print('No se ha podido seleccionar al driver en la tabla', error)
