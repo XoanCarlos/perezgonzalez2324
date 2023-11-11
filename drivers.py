@@ -5,6 +5,8 @@ import var
 
 
 class Drivers():
+
+    @staticmethod
     def limpiapanel(self):
         try:
             listawidgets = [var.ui.lblcodbd, var.ui.txtDni, var.ui.txtDatadriver, var.ui.txtApel, var.ui.txtNome,
@@ -18,6 +20,8 @@ class Drivers():
                 i.setChecked(False)
             var.ui.cmbProv.setCurrentText('')
             var.ui.cmbMuni.setCurrentText('')
+            registros = conexion.Conexion.mostrardrivers(self)
+            Drivers.cargartabladri(registros)
         except Exception as error:
             print('error limpia panel driver: ', error)
 
@@ -93,20 +97,21 @@ class Drivers():
                 var.ui.tabDrivers.setItem(index, 2, QtWidgets.QTableWidgetItem(str(registro[2])))
                 var.ui.tabDrivers.setItem(index, 3, QtWidgets.QTableWidgetItem(str(registro[3])))
                 var.ui.tabDrivers.setItem(index, 4, QtWidgets.QTableWidgetItem(str(registro[4])))
+                var.ui.tabDrivers.setItem(index, 5, QtWidgets.QTableWidgetItem(str(registro[5])))
                 var.ui.tabDrivers.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tabDrivers.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tabDrivers.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 index += 1
         except Exception as error:
-            print("error alta cliente", error)
+            print("error cargar dato en tabla", error)
 
-    def cargadriver(self):
+    def cargadriver(self = None):
         try:
-            Drivers.limpiapanel(self)
             row = var.ui.tabDrivers.selectedItems()
             fila = [dato.text() for dato in row]
             registro = conexion.Conexion.onedriver(fila[0])
             Drivers.cargardatos(registro)
+
         except Exception as error:
             print('error cargar datos de 1 cliente marcando en la tabla: ', error)
 
@@ -115,12 +120,38 @@ class Drivers():
             dni = var.ui.txtDni.text()
             registro = conexion.Conexion.codDri(dni)
             Drivers.cargardatos(registro)
+            registros = []
+            registros = conexion.Conexion.mostrardrivers(self=None)
+            Drivers.cargartabladri(registros)
+            codigo = var.ui.lblcodbd.text()
+            for fila in range(var.ui.tabDrivers.rowCount()):
+                if var.ui.tabDrivers.item(fila, 0).text() == str(codigo):
 
+                    #var.ui.tabDrivers.selectRow(fila)
+                    var.ui.tabDrivers.scrollToItem(var.ui.tabDrivers.item(fila, 0))
+                    var.ui.tabDrivers.setItem(fila, 0, QtWidgets.QTableWidgetItem(str(registro[0])))
+                    var.ui.tabDrivers.setItem(fila, 1, QtWidgets.QTableWidgetItem(str(registro[3])))
+                    var.ui.tabDrivers.setItem(fila, 2, QtWidgets.QTableWidgetItem(str(registro[4])))
+                    var.ui.tabDrivers.setItem(fila, 3, QtWidgets.QTableWidgetItem(str(registro[8])))
+                    var.ui.tabDrivers.setItem(fila, 4, QtWidgets.QTableWidgetItem(str(registro[10])))
+                    var.ui.tabDrivers.setItem(fila, 5, QtWidgets.QTableWidgetItem(str(registro[11])))
+                    var.ui.tabDrivers.item(fila, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                    var.ui.tabDrivers.item(fila, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                    var.ui.tabDrivers.item(fila, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                    var.ui.tabDrivers.item(fila, 0).setBackground(QtGui.QColor(255, 241, 150))
+                    var.ui.tabDrivers.item(fila, 1).setBackground(QtGui.QColor(255, 241, 150))
+                    var.ui.tabDrivers.item(fila, 2).setBackground(QtGui.QColor(255, 241, 150))
+                    var.ui.tabDrivers.item(fila, 3).setBackground(QtGui.QColor(255, 241, 150))
+                    var.ui.tabDrivers.item(fila, 4).setBackground(QtGui.QColor(255, 241, 150))
+                    var.ui.tabDrivers.item(fila, 5).setBackground(QtGui.QColor(255, 241, 150))
+                    break
         except Exception as error:
             print(error, "en busca de datos de un conductor")
 
+
     def cargardatos(registro):
         try:
+            Drivers.limpiapanel(self = None)
             datos = [var.ui.lblcodbd, var.ui.txtDni, var.ui.txtDatadriver, var.ui.txtApel, var.ui.txtNome,
                      var.ui.txtDirdriver, var.ui.cmbProv, var.ui.cmbMuni, var.ui.txtMovil, var.ui.txtSalario]
             for i, dato in enumerate(datos):
@@ -136,5 +167,6 @@ class Drivers():
                 var.ui.chkC.setChecked(True)
             if 'D' in registro[10]:
                 var.ui.chkD.setChecked(True)
+
         except Exception as error:
-            print(error)
+            print("cargar datos en panel gestión", error)

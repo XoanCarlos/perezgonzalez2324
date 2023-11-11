@@ -93,6 +93,8 @@ class Conexion():
                 Conexion.mostrardrivers(self=None)
         except Exception as e:
                 print("otro error", e)
+
+
     def mostrardrivers(self):
         try:
             registros = []
@@ -103,8 +105,8 @@ class Conexion():
                 while query1.next():
                     row = [query1.value(i) for i in range(query1.record().count())]   # función lambda
                     registros.append(row)
-            drivers.Drivers.cargartabladri(registros)
-
+            #drivers.Drivers.cargartabladri(registros)
+            return registros
         except Exception as error:
             print('error mostrar resultados', error)
 
@@ -131,13 +133,13 @@ class Conexion():
             if query.exec():
                 while query.next():
                     codigo = query.value(0)
-                    print('hola1')
                 if codigo is not None:
-                    print('hola2')
                     registro = Conexion.onedriver(codigo)
                     return registro
-                else:
-                    print('error')
 
         except Exception as error:
-            print(error, "en busca de código de un conductor")
+            mbox = QtWidgets.QMessageBox()
+            mbox.setWindowTitle('Aviso')
+            mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+            mbox.setText('El conductor no existe o error de búsqueda')
+            mbox.exec()
