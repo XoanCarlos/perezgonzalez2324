@@ -126,7 +126,6 @@ class Drivers():
             codigo = var.ui.lblcodbd.text()
             for fila in range(var.ui.tabDrivers.rowCount()):
                 if var.ui.tabDrivers.item(fila, 0).text() == str(codigo):
-
                     #var.ui.tabDrivers.selectRow(fila)
                     var.ui.tabDrivers.scrollToItem(var.ui.tabDrivers.item(fila, 0))
                     var.ui.tabDrivers.setItem(fila, 0, QtWidgets.QTableWidgetItem(str(registro[0])))
