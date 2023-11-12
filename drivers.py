@@ -120,7 +120,6 @@ class Drivers():
             dni = var.ui.txtDni.text()
             registro = conexion.Conexion.codDri(dni)
             Drivers.cargardatos(registro)
-            registros = []
             registros = conexion.Conexion.mostrardrivers(self=None)
             Drivers.cargartabladri(registros)
             codigo = var.ui.lblcodbd.text()
@@ -150,7 +149,7 @@ class Drivers():
 
     def cargardatos(registro):
         try:
-            Drivers.limpiapanel(self = None)
+            #Drivers.limpiapanel(self = None)
             datos = [var.ui.lblcodbd, var.ui.txtDni, var.ui.txtDatadriver, var.ui.txtApel, var.ui.txtNome,
                      var.ui.txtDirdriver, var.ui.cmbProv, var.ui.cmbMuni, var.ui.txtMovil, var.ui.txtSalario]
             for i, dato in enumerate(datos):
@@ -160,12 +159,21 @@ class Drivers():
                     dato.setText(str(registro[i]))
             if 'A' in registro[10]:
                 var.ui.chkA.setChecked(True)
+            else:
+                var.ui.chkA.setChecked(False)
             if 'B' in registro[10]:
                 var.ui.chkB.setChecked(True)
+            else:
+                var.ui.chkB.setChecked(False)
             if 'C' in registro[10]:
                 var.ui.chkC.setChecked(True)
+            else:
+                var.ui.chkC.setChecked(False)
             if 'D' in registro[10]:
                 var.ui.chkD.setChecked(True)
+            else:
+                var.ui.chkD.setChecked(False)
+            #Drivers.cargartabladri(registros = conexion.Conexion.mostrardrivers())
 
         except Exception as error:
             print("cargar datos en panel gestión", error)

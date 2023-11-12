@@ -94,7 +94,6 @@ class Conexion():
         except Exception as e:
                 print("otro error", e)
 
-
     def mostrardrivers(self):
         try:
             registros = []
