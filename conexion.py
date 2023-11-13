@@ -135,10 +135,43 @@ class Conexion():
                 if codigo is not None:
                     registro = Conexion.onedriver(codigo)
                     return registro
-
         except Exception as error:
             mbox = QtWidgets.QMessageBox()
             mbox.setWindowTitle('Aviso')
             mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
             mbox.setText('El conductor no existe o error de búsqueda')
             mbox.exec()
+
+    def modifDriver(modifdriver):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare('update drivers set dnidri = :dni, altadri= :alta, apeldri = :apel, nombredri = :nombre, '
+                          ' direcciondri = :direccion, provdri = :provincia, munidri = :municipio, '
+                          ' movildri = :movil, salario = :salario, carnet = :carnet where codigo = :codigo')
+
+            query.bindValue(':codigo', int(modifdriver[0]))
+            query.bindValue(':dni', str(modifdriver[1]))
+            query.bindValue(':alta', str(modifdriver[2]))
+            query.bindValue(':apel', str(modifdriver[3]))
+            query.bindValue(':nombre', str(modifdriver[4]))
+            query.bindValue(':direccion', str(modifdriver[5]))
+            query.bindValue(':provincia', str(modifdriver[6]))
+            query.bindValue(':municipio', str(modifdriver[7]))
+            query.bindValue(':movil', str(modifdriver[8]))
+            query.bindValue(':salario', str(modifdriver[9]))
+            query.bindValue(':carnet', str(modifdriver[10]))
+            if query.exec():
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                msg.setText('Datos Conductor Modificados')
+                msg.exec()
+                Conexion.mostrardrivers(self=None)
+            else:
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                msg.setText(query.lastError().text())
+                msg.exec()
+        except Exception as error:
+            print('error en modificar driver en conexion ', error)

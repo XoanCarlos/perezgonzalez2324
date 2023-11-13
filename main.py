@@ -28,6 +28,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnCalendar.clicked.connect(eventos.Eventos.abrirCalendar)
         var.ui.btnAltaDriver.clicked.connect(drivers.Drivers.altadriver)
         var.ui.btnBuscadri.clicked.connect(drivers.Drivers.buscaDri)
+        var.ui.btnModifDriver.clicked.connect(drivers.Drivers.modifDri)
 
         """
         

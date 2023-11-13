@@ -89,6 +89,8 @@ class Drivers():
 
     def cargartabladri(registros):
         try:
+            print(registros)
+            var.ui.tabDrivers.clearContents()
             index = 0
             for registro in registros:
                 var.ui.tabDrivers.setRowCount(index + 1)  # crea una fila
@@ -107,8 +109,11 @@ class Drivers():
 
     def cargadriver(self = None):
         try:
+            registros = conexion.Conexion.mostrardrivers(self)
+            Drivers.cargartabladri(registros)
             row = var.ui.tabDrivers.selectedItems()
             fila = [dato.text() for dato in row]
+            print(fila)
             registro = conexion.Conexion.onedriver(fila[0])
             Drivers.cargardatos(registro)
 
@@ -173,7 +178,58 @@ class Drivers():
                 var.ui.chkD.setChecked(True)
             else:
                 var.ui.chkD.setChecked(False)
-            #Drivers.cargartabladri(registros = conexion.Conexion.mostrardrivers())
+            #registros = conexion.Conexion.mostrardrivers()
+            Drivers.cargartabladri(conexion.Conexion.mostrardrivers())
 
         except Exception as error:
             print("cargar datos en panel gestión", error)
+
+    def modifDri(self):
+        try:
+            driver = [var.ui. lblcodbd, var.ui.txtDni, var.ui.txtDatadriver, var.ui.txtApel, var.ui.txtNome,
+                      var.ui.txtDirdriver, var.ui.txtMovil, var.ui.txtSalario]
+            modifdriver = []
+            for i in driver:
+                modifdriver.append(i.text().title())
+            prov = var.ui.cmbProv.currentText()
+            modifdriver.insert(6, prov)
+            muni = var.ui.cmbMuni.currentText()
+            modifdriver.insert(7, muni)
+            licencias = []
+            chklicencia = [var.ui.chkA, var.ui.chkB, var.ui.chkC, var.ui.chkD]
+            for i in chklicencia:
+                if i.isChecked():
+                    licencias.append(i.text())
+            modifdriver.append('-'.join(licencias))
+            conexion.Conexion.modifDriver(modifdriver)
+        except Exception as error:
+            print('error en modif drivaer en Drivers', error)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
