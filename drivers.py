@@ -89,7 +89,6 @@ class Drivers():
 
     def cargartabladri(registros):
         try:
-            print(registros)
             var.ui.tabDrivers.clearContents()
             index = 0
             for registro in registros:
@@ -109,14 +108,12 @@ class Drivers():
 
     def cargadriver(self = None):
         try:
-            registros = conexion.Conexion.mostrardrivers(self)
-            Drivers.cargartabladri(registros)
-            row = var.ui.tabDrivers.selectedItems()
-            fila = [dato.text() for dato in row]
-            print(fila)
-            registro = conexion.Conexion.onedriver(fila[0])
+            #var.ui.tabDrivers.clearContents()
+            #Drivers.cargartabladri(conexion.Conexion.mostrardrivers(self))
+            fila = var.ui.tabDrivers.selectedItems()
+            row = [dato.text() for dato in fila]
+            registro = conexion.Conexion.onedriver(row[0])
             Drivers.cargardatos(registro)
-
         except Exception as error:
             print('error cargar datos de 1 cliente marcando en la tabla: ', error)
 
@@ -178,7 +175,7 @@ class Drivers():
                 var.ui.chkD.setChecked(True)
             else:
                 var.ui.chkD.setChecked(False)
-            #registros = conexion.Conexion.mostrardrivers()
+
             Drivers.cargartabladri(conexion.Conexion.mostrardrivers())
 
         except Exception as error:

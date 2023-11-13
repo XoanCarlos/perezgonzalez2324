@@ -119,6 +119,7 @@ class Conexion():
                 while query.next():
                     for i in range(12):
                         registro.append(str(query.value(i)))
+            print(registro)
             return registro
 
         except Exception as error:
