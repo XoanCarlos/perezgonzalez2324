@@ -102,6 +102,7 @@ class Drivers():
                 var.ui.tabDrivers.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tabDrivers.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tabDrivers.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tabDrivers.item(index, 5).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 index += 1
         except Exception as error:
             print("error cargar dato en tabla", error)
@@ -176,15 +177,16 @@ class Drivers():
             else:
                 var.ui.chkD.setChecked(False)
 
-            Drivers.cargartabladri(conexion.Conexion.mostrardrivers())
+            #Drivers.cargartabladri(conexion.Conexion.mostrardrivers())
 
         except Exception as error:
             print("cargar datos en panel gestión", error)
 
     def modifDri(self):
         try:
-            driver = [var.ui. lblcodbd, var.ui.txtDni, var.ui.txtDatadriver, var.ui.txtApel, var.ui.txtNome,
-                      var.ui.txtDirdriver, var.ui.txtMovil, var.ui.txtSalario]
+            driver = [var.ui. lblcodbd, var.ui.txtDni, var.ui.txtDatadriver,
+                      var.ui.txtApel, var.ui.txtNome, var.ui.txtDirdriver,
+                      var.ui.txtMovil, var.ui.txtSalario]
             modifdriver = []
             for i in driver:
                 modifdriver.append(i.text().title())
@@ -202,7 +204,17 @@ class Drivers():
         except Exception as error:
             print('error en modif drivaer en Drivers', error)
 
-
+    def borraDriv(self):
+        try:
+            dni = var.ui.txtDni.text()
+            conexion.Conexion.borraDriv(dni)
+            conexion.Conexion.mostrardrivers(self)
+        except Exception as error:
+            mbox = QtWidgets.QMessageBox()
+            mbox.setWindowTitle('Aviso')
+            mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+            mbox.setText('El conductor no existe o no se puede borrar')
+            mbox.exec()
 
 
 

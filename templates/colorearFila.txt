@@ -1,0 +1,7 @@
+    def colorearFila(codigo):
+        for fila in range(var.ui.tablaConductores.rowCount()):
+            if var.ui.tablaConductores.item(fila, 0).text() == str(codigo):
+                for columna in range(var.ui.tablaConductores.columnCount()):
+                    item = var.ui.tablaConductores.item(fila, columna)
+                    if item is not None:
+                        item.setBackground(QtGui.QColor(255, 241, 150))

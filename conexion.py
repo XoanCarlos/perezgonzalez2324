@@ -1,8 +1,8 @@
 from PyQt6 import QtWidgets, QtSql, QtGui
-
+from datetime import date, datetime
 import drivers
 import var
-import sqlite3
+
 
 
 class Conexion():
@@ -104,7 +104,7 @@ class Conexion():
                 while query1.next():
                     row = [query1.value(i) for i in range(query1.record().count())]   # función lambda
                     registros.append(row)
-            #drivers.Drivers.cargartabladri(registros)
+            drivers.Drivers.cargartabladri(registros)
             return registros
         except Exception as error:
             print('error mostrar resultados', error)
@@ -119,9 +119,7 @@ class Conexion():
                 while query.next():
                     for i in range(12):
                         registro.append(str(query.value(i)))
-            print(registro)
             return registro
-
         except Exception as error:
             print('error en fichero conexion datos de 1 driver: ', error)
 
@@ -176,3 +174,41 @@ class Conexion():
                 msg.exec()
         except Exception as error:
             print('error en modificar driver en conexion ', error)
+
+    def borraDriv(dni):
+        try:
+            query1 = QtSql.QSqlQuery()
+            query1.prepare('select bajadri from drivers where '
+                          ' dnidri = :dni')
+            query1.bindValue(':dni', str(dni))
+            if query1.exec():
+                while query1.next():
+                    valor = query1.value(0)
+                print(valor)
+            if str(valor) == '':
+                fecha = datetime.today()
+                fecha = fecha.strftime('%d/%m/%Y')
+                query = QtSql.QSqlQuery()
+                query.prepare('update drivers set bajadri = :fechabaja where '
+                              ' dnidri = :dni')
+                query.bindValue(':fechabaja', str(fecha))
+                query.bindValue(':dni', str(dni))
+                if query.exec():
+                    msg = QtWidgets.QMessageBox()
+                    msg.setWindowTitle('Aviso')
+                    msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                    msg.setText('Conductor con dado de Baja')
+                    msg.exec()
+            else:
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                msg.setText('No existe conductor o conductor dado de baja anteriormente')
+                msg.exec()
+        except Exception as error:
+            print('error en baja driver en conexion ', error)
+
+
+
+
+

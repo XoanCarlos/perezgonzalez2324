@@ -29,6 +29,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnAltaDriver.clicked.connect(drivers.Drivers.altadriver)
         var.ui.btnBuscadri.clicked.connect(drivers.Drivers.buscaDri)
         var.ui.btnModifDriver.clicked.connect(drivers.Drivers.modifDri)
+        var.ui.btnBajaDriver.clicked.connect(drivers.Drivers.borraDriv)
 
         """
         
