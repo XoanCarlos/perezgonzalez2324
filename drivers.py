@@ -128,7 +128,7 @@ class Drivers():
             codigo = var.ui.lblcodbd.text()
             for fila in range(var.ui.tabDrivers.rowCount()):
                 if var.ui.tabDrivers.item(fila, 0).text() == str(codigo):
-                    for columna in range(var.ui.tab.columnCount()):
+                    for columna in range(var.ui.tabDrivers.columnCount()):
                         item = var.ui.tabDrivers.item(fila, columna)
                         if item is not None:
                             item.setBackground(QtGui.QColor(255, 241, 150))
@@ -137,7 +137,7 @@ class Drivers():
 
     def cargardatos(registro):
         try:
-            #Drivers.limpiapanel(self = None)
+
             datos = [var.ui.lblcodbd, var.ui.txtDni, var.ui.txtDatadriver, var.ui.txtApel, var.ui.txtNome,
                      var.ui.txtDirdriver, var.ui.cmbProv, var.ui.cmbMuni, var.ui.txtMovil, var.ui.txtSalario]
             for i, dato in enumerate(datos):
@@ -201,9 +201,17 @@ class Drivers():
             mbox.setText('El conductor no existe o no se puede borrar')
             mbox.exec()
 
-
-
-
+    def selEstado(self):
+        if var.ui.rbtTodos.isChecked():
+            estado= 0
+            conexion.Conexion.selectDrivers(estado)
+        elif var.ui.rbtAlta.isChecked():
+            estado = 1
+            print('pulse alta')
+            conexion.Conexion.selectDrivers(estado)
+        elif var.ui.rbtBaja.isChecked():
+            estado = 2
+            conexion.Conexion.selectDrivers(estado)
 
 
 

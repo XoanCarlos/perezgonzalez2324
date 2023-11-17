@@ -1078,6 +1078,9 @@
                  <property name="checked">
                   <bool>true</bool>
                  </property>
+                 <attribute name="buttonGroup">
+                  <string notr="true">rtbGroup</string>
+                 </attribute>
                 </widget>
                </item>
                <item row="0" column="2">
@@ -1097,6 +1100,9 @@
                  <property name="text">
                   <string>Alta</string>
                  </property>
+                 <attribute name="buttonGroup">
+                  <string notr="true">rtbGroup</string>
+                 </attribute>
                 </widget>
                </item>
                <item row="0" column="3">
@@ -1116,6 +1122,9 @@
                  <property name="text">
                   <string>Baja</string>
                  </property>
+                 <attribute name="buttonGroup">
+                  <string notr="true">rtbGroup</string>
+                 </attribute>
                 </widget>
                </item>
               </layout>
@@ -1402,4 +1411,7 @@ background-color:rgb(100,100,100);
  </tabstops>
  <resources/>
  <connections/>
+ <buttongroups>
+  <buttongroup name="rtbGroup"/>
+ </buttongroups>
 </ui>

@@ -63,13 +63,6 @@ class Eventos():
         except Exception as error:
             print('Error cargar el statusbar: ', error)
 
-    def selEstado(self):
-        if var.ui.rbtTodos.isChecked():
-            print('pulsaste todos')
-        elif var.ui.rbtAlta.isChecked():
-            print('pulsaste alta')
-        elif var.ui.rbtBaja.isChecked():
-            print('pulsaste baja')
 
     def resizeTabdrivers(self):
         try:

@@ -93,7 +93,7 @@ class Conexion():
                 Conexion.mostrardrivers(self=None)
         except Exception as e:
                 print("otro error", e)
-
+    @staticmethod
     def mostrardrivers(self):
         try:
             registros = []
@@ -208,7 +208,43 @@ class Conexion():
         except Exception as error:
             print('error en baja driver en conexion ', error)
 
+    def selectDrivers(estado):
+        try:
+            registros = []
+            if estado == 0:
+                query = QtSql.QSqlQuery()
+                query.prepare("select codigo, apeldri, nombredri, movildri, "
+                               " carnet, bajadri from drivers")
+                if query.exec():
+                    while query.next():
+                        row = [query.value(i) for i in range(query.record().count())]   # función lambda
+                        registros.append(row)
+                drivers.Drivers.cargartabladri(registros)
+            elif estado == 1:
+                query = QtSql.QSqlQuery()
+                query.prepare("select codigo, apeldri, nombredri, movildri, "
+                              " carnet, bajadri from drivers where bajadri is null")
+                if query.exec():
+                    while query.next():
+                        row = [query.value(i) for i in range(query.record().count())]  # función lambda
+                        registros.append(row)
+                drivers.Drivers.cargartabladri(registros)
+            elif estado == 2:
+                query = QtSql.QSqlQuery()
+                query.prepare("select codigo, apeldri, nombredri, movildri, "
+                              " carnet, bajadri from drivers where bajadri is not null")
+                if query.exec():
+                    while query.next():
+                        row = [query.value(i) for i in range(query.record().count())]  # función lambda
+                        registros.append(row)
+                drivers.Drivers.cargartabladri(registros)
 
+        except Exception as error:
+            msg = QtWidgets.QMessageBox()
+            msg.setWindowTitle('Aviso')
+            msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+            msg.setText('Error en cargar tabla o selección de datos')
+            msg.exec()
 
 
 

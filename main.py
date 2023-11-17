@@ -68,15 +68,7 @@ class Main(QtWidgets.QMainWindow):
     
         '''
         var.ui.cmbProv.currentIndexChanged.connect(conexion.Conexion.selMuni)
-
-        '''
-           
-        ejecución de diferentes funciones al lanzar la aplicación
-        '''
-        eventos.Eventos.cargastatusbar(self)
-        rbtdriver = [var.ui.rbtTodos, var.ui.rbtAlta, var.ui.rbtBaja]
-        for i in rbtdriver:
-            i.toggled.connect(eventos.Eventos.selEstado)
+        var.ui.rtbGroup.buttonClicked.connect(drivers.Drivers.selEstado)
 
     def closeEvent(self, event):
         # event.ignore()
