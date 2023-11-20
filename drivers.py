@@ -20,8 +20,12 @@ class Drivers():
                 i.setChecked(False)
             var.ui.cmbProv.setCurrentText('')
             var.ui.cmbMuni.setCurrentText('')
-            registros = conexion.Conexion.mostrardrivers(self)
-            Drivers.cargartabladri(registros)
+            if var.ui.rbtAlta.isChecked():
+                estado = 1
+                conexion.Conexion.selectDrivers(estado)
+            else:
+                registros = conexion.Conexion.mostrardrivers(self)
+                Drivers.cargartabladri(registros)
         except Exception as error:
             print('error limpia panel driver: ', error)
 
@@ -92,7 +96,6 @@ class Drivers():
             var.ui.tabDrivers.clearContents()
             index = 0
             for registro in registros:
-                print(registro[5])
                 var.ui.tabDrivers.setRowCount(index + 1)  # crea una fila
                 var.ui.tabDrivers.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0])))
                 var.ui.tabDrivers.setItem(index, 1, QtWidgets.QTableWidgetItem(str(registro[1])))
@@ -124,8 +127,17 @@ class Drivers():
             dni = var.ui.txtDni.text()
             registro = conexion.Conexion.codDri(dni)
             Drivers.cargardatos(registro)
-            registros = conexion.Conexion.mostrardrivers(self=None)
-            Drivers.cargartabladri(registros)
+            if var.ui.rbtTodos.isChecked():
+                print('hola')
+                estado = 0
+                conexion.Conexion.selectDrivers(estado)
+            elif var.ui.rbtAlta.isChecked():
+                estado = 1
+                conexion.Conexion.selectDrivers(estado)
+            elif var.ui.rbtBaja.isChecked():
+                estado = 2
+                conexion.Conexion.selectDrivers(estado)
+
             codigo = var.ui.lblcodbd.text()
             for fila in range(var.ui.tabDrivers.rowCount()):
                 if var.ui.tabDrivers.item(fila, 0).text() == str(codigo):
@@ -138,7 +150,6 @@ class Drivers():
 
     def cargardatos(registro):
         try:
-
             datos = [var.ui.lblcodbd, var.ui.txtDni, var.ui.txtDatadriver, var.ui.txtApel, var.ui.txtNome,
                      var.ui.txtDirdriver, var.ui.cmbProv, var.ui.cmbMuni, var.ui.txtMovil, var.ui.txtSalario]
             for i, dato in enumerate(datos):
@@ -204,11 +215,10 @@ class Drivers():
 
     def selEstado(self):
         if var.ui.rbtTodos.isChecked():
-            estado= 0
+            estado = 0
             conexion.Conexion.selectDrivers(estado)
         elif var.ui.rbtAlta.isChecked():
             estado = 1
-            print('pulse alta')
             conexion.Conexion.selectDrivers(estado)
         elif var.ui.rbtBaja.isChecked():
             estado = 2

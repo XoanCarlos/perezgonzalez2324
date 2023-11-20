@@ -187,7 +187,6 @@ class Conexion():
             if query1.exec():
                 while query1.next():
                     valor = query1.value(0)
-                print(valor)
             if str(valor) == '':
                 fecha = datetime.today()
                 fecha = fecha.strftime('%d/%m/%Y')
