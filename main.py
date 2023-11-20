@@ -1,10 +1,13 @@
-import conexion
 from drivers import *
 from MainWindow import *
 from windowaux import *
-import var, drivers, sys, eventos
-# Establecer la configuración regional en español
+import var
+import drivers
+import sys
+import eventos
 import locale
+import conexion
+# Establecer la configuración regional en español
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 locale.setlocale(locale.LC_MONETARY, 'es_ES.UTF-8')
 
@@ -16,10 +19,11 @@ class Main(QtWidgets.QMainWindow):
         var.ui.setupUi(self)
         var.calendar = Calendar()
         var.dlgacerca = DlgAcerca()
+        var.dlgabrir = FileDialogAbrir()
         self.driver = Drivers()
         conexion.Conexion.conexion()
         conexion.Conexion.cargaprov()
-        drivers.Drivers.cargartabladri(registros=conexion.Conexion.mostrardrivers(self))
+        conexion.Conexion.mostrardrivers(self)
 
         '''
        
@@ -37,6 +41,7 @@ class Main(QtWidgets.QMainWindow):
         """
         var.ui.actionSalir.triggered.connect(eventos.Eventos.mostrarsalir)
         var.ui.actionAcerca_de.triggered.connect(eventos.Eventos.acercade)
+        var.ui.actionCrear_Copia_Seguridad.triggered.connect(eventos.Eventos.crearbackup)
 
         '''
         
@@ -53,6 +58,7 @@ class Main(QtWidgets.QMainWindow):
         '''
         var.ui.actionbarSalir.triggered.connect(eventos.Eventos.mostrarsalir)
         var.ui.actionlimpiaPaneldriver.triggered.connect(drivers.Drivers.limpiapanel)
+        var.ui.actioncrearbackup.triggered.connect(eventos.Eventos.crearbackup)
 
 
         '''

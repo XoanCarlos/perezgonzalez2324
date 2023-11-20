@@ -3,12 +3,11 @@ from datetime import date, datetime
 import drivers
 import var
 
-
-
 class Conexion():
     def conexion(self = None):
+        var.bbdd = 'bbdd.sqlite'
         db = QtSql.QSqlDatabase.addDatabase('QSQLITE')
-        db.setDatabaseName('bbdd.sqlite')
+        db.setDatabaseName(var.bbdd)
         if not db.open():
             print('error de conexión')
             return False
@@ -97,15 +96,19 @@ class Conexion():
     def mostrardrivers(self):
         try:
             registros = []
-            query1 = QtSql.QSqlQuery()
-            query1.prepare("select codigo, apeldri, nombredri, movildri, "
-                           " carnet, bajadri from drivers")
-            if query1.exec():
-                while query1.next():
-                    row = [query1.value(i) for i in range(query1.record().count())]   # función lambda
-                    registros.append(row)
-            drivers.Drivers.cargartabladri(registros)
-            return registros
+            if var.ui.rbtAlta.isChecked():
+                estado = 1
+                Conexion.selectDrivers(estado)
+            else:
+                query1 = QtSql.QSqlQuery()
+                query1.prepare("select codigo, apeldri, nombredri, movildri, "
+                               " carnet, bajadri from drivers")
+                if query1.exec():
+                    while query1.next():
+                        row = [query1.value(i) for i in range(query1.record().count())]  # función lambda
+                        registros.append(row)
+                drivers.Drivers.cargartabladri(registros)
+                return registros
         except Exception as error:
             print('error mostrar resultados', error)
 
@@ -211,7 +214,7 @@ class Conexion():
     def selectDrivers(estado):
         try:
             registros = []
-            if estado == 0:
+            if int(estado) == 0:
                 query = QtSql.QSqlQuery()
                 query.prepare("select codigo, apeldri, nombredri, movildri, "
                                " carnet, bajadri from drivers")
@@ -220,7 +223,7 @@ class Conexion():
                         row = [query.value(i) for i in range(query.record().count())]   # función lambda
                         registros.append(row)
                 drivers.Drivers.cargartabladri(registros)
-            elif estado == 1:
+            elif int(estado) == 1:
                 query = QtSql.QSqlQuery()
                 query.prepare("select codigo, apeldri, nombredri, movildri, "
                               " carnet, bajadri from drivers where bajadri is null")
@@ -229,7 +232,7 @@ class Conexion():
                         row = [query.value(i) for i in range(query.record().count())]  # función lambda
                         registros.append(row)
                 drivers.Drivers.cargartabladri(registros)
-            elif estado == 2:
+            elif int(estado) == 2:
                 query = QtSql.QSqlQuery()
                 query.prepare("select codigo, apeldri, nombredri, movildri, "
                               " carnet, bajadri from drivers where bajadri is not null")

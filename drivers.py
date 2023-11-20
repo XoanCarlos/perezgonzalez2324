@@ -92,6 +92,7 @@ class Drivers():
             var.ui.tabDrivers.clearContents()
             index = 0
             for registro in registros:
+                print(registro[5])
                 var.ui.tabDrivers.setRowCount(index + 1)  # crea una fila
                 var.ui.tabDrivers.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0])))
                 var.ui.tabDrivers.setItem(index, 1, QtWidgets.QTableWidgetItem(str(registro[1])))
