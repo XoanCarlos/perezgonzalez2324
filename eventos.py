@@ -8,6 +8,7 @@ import sys
 import var
 import zipfile
 import shutil
+import conexion
 
 
 # Establecer la configuración regional en español
@@ -129,14 +130,13 @@ class Eventos():
         except Exception as error:
             print('error poner movil', error)
 
-
     def crearbackup(self):
         try:
             fecha = datetime.today()
             fecha = fecha.strftime('%Y_%m_%d_%H_%M_%S')
             copia = str(fecha)+'_backup.zip'
             directorio, filename = var.dlgabrir.getSaveFileName(None, 'Guardar Copia Seguridad', copia, '.zip')
-            if var.dlgabrir.accept and filename !='':
+            if var.dlgabrir.accept and filename:
                 fichzip = zipfile.ZipFile(copia,'w')
                 fichzip.write(var.bbdd, os.path.basename(var.bbdd), zipfile.ZIP_DEFLATED)
                 fichzip.close()
@@ -153,3 +153,28 @@ class Eventos():
             msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
             msg.setText('Error en Copia de Seguridad', error)
             msg.exec()
+
+    def restaurarbackup(self):
+        try:
+            filename = var.dlgabrir.getOpenFileName(None,'Restaurar Copia de Seguridad',
+                                                    '','*.zip;;All Files(*)')
+            file = filename[0]
+            if file:
+                with zipfile.ZipFile(str(file), 'r') as bbdd:
+                    bbdd.extractall(pwd=None)
+                bbdd.close()
+                msg = QtWidgets.QMessageBox()
+                msg.setModal(True)
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                msg.setText('Copia de Seguridad Restaurada')
+                msg.exec()
+                conexion.Conexion.mostrardrivers(self)
+
+        except Exception as error:
+            msg = QtWidgets.QMessageBox()
+            msg.setWindowTitle('Aviso')
+            msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+            msg.setText('Error Restauración de la Copia de Seguridad', error)
+            msg.exec()
+

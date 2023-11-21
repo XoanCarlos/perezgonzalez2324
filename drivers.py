@@ -128,7 +128,6 @@ class Drivers():
             registro = conexion.Conexion.codDri(dni)
             Drivers.cargardatos(registro)
             if var.ui.rbtTodos.isChecked():
-                print('hola')
                 estado = 0
                 conexion.Conexion.selectDrivers(estado)
             elif var.ui.rbtAlta.isChecked():

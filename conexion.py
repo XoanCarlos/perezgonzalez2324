@@ -107,8 +107,12 @@ class Conexion():
                     while query1.next():
                         row = [query1.value(i) for i in range(query1.record().count())]  # función lambda
                         registros.append(row)
+            if registros:
                 drivers.Drivers.cargartabladri(registros)
                 return registros
+            else:
+                var.ui.tabDrivers.setRowCount(0)
+
         except Exception as error:
             print('error mostrar resultados', error)
 
@@ -221,7 +225,10 @@ class Conexion():
                     while query.next():
                         row = [query.value(i) for i in range(query.record().count())]   # función lambda
                         registros.append(row)
-                drivers.Drivers.cargartabladri(registros)
+                if registros:
+                    drivers.Drivers.cargartabladri(registros)
+                else:
+                    var.ui.tabDrivers.setRowCount(0)
             elif int(estado) == 1:
                 query = QtSql.QSqlQuery()
                 query.prepare("select codigo, apeldri, nombredri, movildri, "
@@ -230,7 +237,10 @@ class Conexion():
                     while query.next():
                         row = [query.value(i) for i in range(query.record().count())]  # función lambda
                         registros.append(row)
-                drivers.Drivers.cargartabladri(registros)
+                if registros:
+                    drivers.Drivers.cargartabladri(registros)
+                else:
+                    var.ui.tabDrivers.setRowCount(0)
             elif int(estado) == 2:
                 query = QtSql.QSqlQuery()
                 query.prepare("select codigo, apeldri, nombredri, movildri, "
@@ -239,7 +249,10 @@ class Conexion():
                     while query.next():
                         row = [query.value(i) for i in range(query.record().count())]  # función lambda
                         registros.append(row)
-                drivers.Drivers.cargartabladri(registros)
+                if registros:
+                    drivers.Drivers.cargartabladri(registros)
+                else:
+                    var.ui.tabDrivers.setRowCount(0)
 
         except Exception as error:
             msg = QtWidgets.QMessageBox()

@@ -42,6 +42,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionSalir.triggered.connect(eventos.Eventos.mostrarsalir)
         var.ui.actionAcerca_de.triggered.connect(eventos.Eventos.acercade)
         var.ui.actionCrear_Copia_Seguridad.triggered.connect(eventos.Eventos.crearbackup)
+        var.ui.actionRestaurar_Copia_Seguridad.triggered.connect(eventos.Eventos.restaurarbackup)
 
         '''
         
