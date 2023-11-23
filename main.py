@@ -23,7 +23,8 @@ class Main(QtWidgets.QMainWindow):
         self.driver = Drivers()
         conexion.Conexion.conexion()
         conexion.Conexion.cargaprov()
-        conexion.Conexion.mostrardrivers(self)
+        estado = 1
+        conexion.Conexion.selectDrivers(estado)
 
         '''
        
@@ -43,6 +44,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionAcerca_de.triggered.connect(eventos.Eventos.acercade)
         var.ui.actionCrear_Copia_Seguridad.triggered.connect(eventos.Eventos.crearbackup)
         var.ui.actionRestaurar_Copia_Seguridad.triggered.connect(eventos.Eventos.restaurarbackup)
+        var.ui.actionExportar_Datos_Excel.triggered.connect(eventos.Eventos.exportardatosxls)
 
         '''
         

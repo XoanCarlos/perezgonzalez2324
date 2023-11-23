@@ -9,7 +9,8 @@ import var
 import zipfile
 import shutil
 import conexion
-
+import xlwt
+import xlrd
 
 # Establecer la configuración regional en español
 locale.setlocale(locale.LC_TIME, 'es_ES')
@@ -177,4 +178,57 @@ class Eventos():
             msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
             msg.setText('Error Restauración de la Copia de Seguridad', error)
             msg.exec()
+
+    def exportardatosxls():
+        try:
+            fecha = datetime.today()
+            fecha = fecha.strftime('%Y_%m_%d_%H_%M_%S')
+            file = (str(fecha)+'_Datos.xls')
+            directorio, filename = var.dlgabrir.getSaveFileName(None, 'Exportar Datos en XLS', file, '.xls')
+            if var.dlgabrir.accept and filename:
+                wb = xlwt.Workbook()
+                sheet1 = wb.add_sheet('Conductores')
+                sheet1.write(0, 0, 'ID')
+                sheet1.write(0, 1, 'DNI')
+                sheet1.write(0, 2, 'Fecha Alta')
+                sheet1.write(0, 3, 'Apellidos')
+                sheet1.write(0, 4, 'Nombre')
+                sheet1.write(0, 5, 'Dirección')
+                sheet1.write(0, 6, 'Provincia')
+                sheet1.write(0, 7, 'Municipio')
+                sheet1.write(0, 8, 'Móvil')
+                sheet1.write(0, 9, 'Salario')
+                sheet1.write(0, 10, 'Carnet')
+                registros = conexion.Conexion.selectDriverstodos()
+                for fila, registro in enumerate(registros, 1):
+                    for i, valor in enumerate(registro[:-1]):
+                        sheet1.write(fila, i, str(valor))
+                wb.save(directorio)
+                msg = QtWidgets.QMessageBox()
+                msg.setModal(True)
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                msg.setText('Exportación de Datos Realizada')
+                msg.exec()
+
+        except Exception as error:
+            msg = QtWidgets.QMessageBox()
+            msg.setWindowTitle('Aviso')
+            msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+            msg.setText('Error Exportar Datos en Hoja de Cálculo', error)
+            msg.exec()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
