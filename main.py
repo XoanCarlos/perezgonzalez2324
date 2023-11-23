@@ -62,6 +62,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionbarSalir.triggered.connect(eventos.Eventos.mostrarsalir)
         var.ui.actionlimpiaPaneldriver.triggered.connect(drivers.Drivers.limpiapanel)
         var.ui.actioncrearbackup.triggered.connect(eventos.Eventos.crearbackup)
+        var.ui.actionrestaurarbackup.triggered.connect(eventos.Eventos.restaurarbackup)
 
 
         '''

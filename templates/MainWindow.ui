@@ -1365,6 +1365,7 @@ background-color:rgb(100,100,100);
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionrestaurarbackup"/>
    <addaction name="actioncrearbackup"/>
    <addaction name="separator"/>
    <addaction name="actionlimpiaPaneldriver"/>
@@ -1428,6 +1429,15 @@ background-color:rgb(100,100,100);
   <action name="actionExportar_Datos_Excel">
    <property name="text">
     <string>Exportar Datos XLS</string>
+   </property>
+  </action>
+  <action name="actionrestaurarbackup">
+   <property name="icon">
+    <iconset>
+     <normaloff>../img/backup1.png</normaloff>../img/backup1.png</iconset>
+   </property>
+   <property name="text">
+    <string>restaurarbackup</string>
    </property>
   </action>
  </widget>
