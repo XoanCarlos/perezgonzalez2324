@@ -261,5 +261,19 @@ class Conexion():
             msg.setText('Error en cargar tabla o selección de datos')
             msg.exec()
 
+    @staticmethod
+    def selectDriverstodos():
+        try:
+            registros = []
+            query = QtSql.QSqlQuery()
+            query.prepare("select * from drivers order by apeldri")
+            if query.exec():
+                while query.next():
+                    row = [query.value(i) for i in range(query.record().count())]  # función lambda
+                    registros.append(row)
+            return registros
+        except Exception as error:
+            print('error devolver todos los drivers ', error)
+
 
 

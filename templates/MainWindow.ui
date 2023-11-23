@@ -1334,6 +1334,8 @@ background-color:rgb(100,100,100);
     </property>
     <addaction name="actionCrear_Copia_Seguridad"/>
     <addaction name="actionRestaurar_Copia_Seguridad"/>
+    <addaction name="separator"/>
+    <addaction name="actionExportar_Datos_Excel"/>
    </widget>
    <addaction name="menuArchivo"/>
    <addaction name="menuHerramientas"/>
@@ -1421,6 +1423,11 @@ background-color:rgb(100,100,100);
    </property>
    <property name="text">
     <string>crearbackup</string>
+   </property>
+  </action>
+  <action name="actionExportar_Datos_Excel">
+   <property name="text">
+    <string>Exportar Datos XLS</string>
    </property>
   </action>
  </widget>

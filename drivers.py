@@ -204,7 +204,7 @@ class Drivers():
         try:
             dni = var.ui.txtDni.text()
             conexion.Conexion.borraDriv(dni)
-            conexion.Conexion.mostrardrivers(self)
+            conexion.Conexion.selectDrivers(1)
         except Exception as error:
             mbox = QtWidgets.QMessageBox()
             mbox.setWindowTitle('Aviso')
