@@ -150,6 +150,7 @@ class Conexion():
 
     def modifDriver(modifdriver):
         try:
+            registro = Conexion.onedriver(int(modifdriver[0]))
             query = QtSql.QSqlQuery()
             query.prepare('update drivers set dnidri = :dni, altadri= :alta, apeldri = :apel, nombredri = :nombre, '
                           ' direcciondri = :direccion, provdri = :provincia, munidri = :municipio, '
@@ -166,19 +167,26 @@ class Conexion():
             query.bindValue(':movil', str(modifdriver[8]))
             query.bindValue(':salario', str(modifdriver[9]))
             query.bindValue(':carnet', str(modifdriver[10]))
-            if query.exec():
+            if modifdriver == registro[:-1]:
                 msg = QtWidgets.QMessageBox()
                 msg.setWindowTitle('Aviso')
                 msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                msg.setText('Datos Conductor Modificados')
+                msg.setText('No hay datos que modificar')
                 msg.exec()
-                Conexion.mostrardrivers(self=None)
             else:
-                msg = QtWidgets.QMessageBox()
-                msg.setWindowTitle('Aviso')
-                msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-                msg.setText(query.lastError().text())
-                msg.exec()
+                if query.exec():
+                    msg = QtWidgets.QMessageBox()
+                    msg.setWindowTitle('Aviso')
+                    msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                    msg.setText('Datos Conductor Modificados')
+                    msg.exec()
+                    Conexion.selectDrivers(1)
+                else:
+                    msg = QtWidgets.QMessageBox()
+                    msg.setWindowTitle('Aviso')
+                    msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                    msg.setText(query.lastError().text())
+                    msg.exec()
         except Exception as error:
             print('error en modificar driver en conexion ', error)
 
