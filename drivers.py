@@ -33,6 +33,7 @@ class Drivers():
         try:
             data = ('{:02d}/{:02d}/{:4d}'.format(qDate.day(), qDate.month(), qDate.year()))
             var.ui.txtDatadriver.setText(str(data))
+            return data
             var.calendar.hide()
         except Exception as error:
             print("error en cargar fecha: ", error)
