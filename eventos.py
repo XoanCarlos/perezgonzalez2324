@@ -5,6 +5,8 @@ from PyQt6 import QtWidgets, QtCore, QtGui
 
 import locale
 import sys
+
+import drivers
 import var
 import zipfile
 import shutil
@@ -218,7 +220,45 @@ class Eventos():
             msg.setText('Error Exportar Datos en Hoja de Cálculo', error)
             msg.exec()
 
+    def importardatosxls(self):
+        try:
+            filename = var.dlgabrir.getOpenFileName(None, 'Importar datos', '',
+                                                    '*.xls;;All Files(*)')
+            if var.dlgabrir.accept and filename != '':
+                file = filename[0]
+                documento = xlrd.open_workbook(file)
+                datos = documento.sheet_by_index(0)
+                filas = datos.nrows
+                columnas = datos.ncols
+                for i in range(filas):
+                    if i == 0:
+                        pass
+                    else:
+                        new = []
+                        for j in range(columnas):
+                            if j == 1:
+                                dato = xlrd.xldate_as_datetime(datos.cell_value(i,j), documento.datemode)
+                                dato = dato.strftime('%d/%m/%Y')
+                                new.append(str(dato))
+                            else:
+                                new.append(str(datos.cell_value(i,j)))
+                        conexion.Conexion.guardardri(new)
+                    if i == filas - 1:
+                        msg = QtWidgets.QMessageBox()
+                        msg.setModal(True)
+                        msg.setWindowTitle('Aviso')
+                        msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                        msg.setText('Importación de Datos Realizada')
+                        msg.exec()
+                conexion.Conexion.selectDrivers(1)
 
+        except Exception as error:
+            msg = QtWidgets.QMessageBox()
+            msg.setModal(True)
+            msg.setWindowTitle('Aviso')
+            msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+            msg.setText(error)
+            msg.exec()
 
 
 

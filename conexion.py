@@ -77,20 +77,11 @@ class Conexion():
                 query.bindValue(':movil', str(newdriver[7]))
                 query.bindValue(':salario', str(newdriver[8]))
                 query.bindValue(':carnet', str(newdriver[9]))
+
                 if query.exec():
-                    mbox = QtWidgets.QMessageBox()
-                    mbox.setWindowTitle('Aviso')
-                    mbox.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
-                    mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                    mbox.setText("Empleado dado de alta")
-                    mbox.exec()
+                    return True
                 else:
-                    mbox = QtWidgets.QMessageBox()
-                    mbox.setWindowTitle('Aviso')
-                    mbox.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
-                    mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-                    mbox.setText("Asegúrese de que el conductor no existe")
-                    mbox.exec()
+                   return False
                 Conexion.mostrardrivers(self=None)
         except Exception as e:
                 print("otro error", e)

@@ -87,8 +87,21 @@ class Drivers():
                 if i.isChecked():
                     licencias.append(i.text())
             newdriver.append('-'.join(licencias))
-            conexion.Conexion.guardardri(newdriver)
-
+            valor = conexion.Conexion.guardardri(newdriver)
+            if valor == True:
+                mbox = QtWidgets.QMessageBox()
+                mbox.setWindowTitle('Aviso')
+                mbox.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                mbox.setText("Empleado dado de alta")
+                mbox.exec()
+            elif valor == False:
+                mbox = QtWidgets.QMessageBox()
+                mbox.setWindowTitle('Aviso')
+                mbox.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                mbox.setText("Asegúrese de que el conductor no existe")
+                mbox.exec()
         except Exception as error:
             print("error alta cliente", error)
 

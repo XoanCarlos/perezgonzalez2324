@@ -45,7 +45,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionCrear_Copia_Seguridad.triggered.connect(eventos.Eventos.crearbackup)
         var.ui.actionRestaurar_Copia_Seguridad.triggered.connect(eventos.Eventos.restaurarbackup)
         var.ui.actionExportar_Datos_Excel.triggered.connect(eventos.Eventos.exportardatosxls)
-
+        var.ui.actionImportar_Datos_XLS.triggered.connect(eventos.Eventos.importardatosxls)
         '''
         
         zona eventos cajas de texto
