@@ -187,7 +187,7 @@ class Eventos():
             fecha = fecha.strftime('%Y_%m_%d_%H_%M_%S')
             file = (str(fecha)+'_Datos.xls')
             directorio, filename = var.dlgabrir.getSaveFileName(None, 'Exportar Datos en XLS', file, '.xls')
-            if var.dlgabrir.accept and filename:
+            if filename:
                 wb = xlwt.Workbook()
                 sheet1 = wb.add_sheet('Conductores')
                 sheet1.write(0, 0, 'ID')
@@ -213,6 +213,8 @@ class Eventos():
                 msg.setText('Exportación de Datos Realizada')
                 msg.exec()
 
+
+
         except Exception as error:
             msg = QtWidgets.QMessageBox()
             msg.setWindowTitle('Aviso')
@@ -222,9 +224,9 @@ class Eventos():
 
     def importardatosxls(self):
         try:
-            filename = var.dlgabrir.getOpenFileName(None, 'Importar datos', '',
+            filename, _ = var.dlgabrir.getOpenFileName(None, 'Importar datos', '',
                                                     '*.xls;;All Files(*)')
-            if var.dlgabrir.accept and filename != '':
+            if filename:
                 file = filename[0]
                 documento = xlrd.open_workbook(file)
                 datos = documento.sheet_by_index(0)
@@ -259,14 +261,6 @@ class Eventos():
             msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
             msg.setText(error)
             msg.exec()
-
-
-
-
-
-
-
-
 
 
 

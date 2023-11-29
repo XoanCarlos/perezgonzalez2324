@@ -81,19 +81,22 @@ class Main(QtWidgets.QMainWindow):
         var.ui.rtbGroup.buttonClicked.connect(drivers.Drivers.selEstado)
 
     def closeEvent(self, event):
-        # event.ignore()
+        #event.ignore()
         # eventos.Eventos.mostrarsalir()
         mbox = QtWidgets.QMessageBox.information(self, 'Salir', '¿Estás seguro de que quieres salir?',
             QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
 
         if mbox == QtWidgets.QMessageBox.StandardButton.Yes:
-            app.quit()
-        if mbox == QtWidgets.QMessageBox.StandardButton.No:
+            event.accept()
+        else:
             event.ignore()
 
 
 if __name__ == '__main__':
-    app = QtWidgets.QApplication([])
-    window = Main()
-    window.showMaximized()
-    sys.exit(app.exec())
+    try:
+        app = QtWidgets.QApplication([])
+        window = Main()
+        window.showMaximized()
+        sys.exit(app.exec())
+    except Exception as error:
+        print(error)
