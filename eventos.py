@@ -212,9 +212,6 @@ class Eventos():
                 msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
                 msg.setText('Exportación de Datos Realizada')
                 msg.exec()
-
-
-
         except Exception as error:
             msg = QtWidgets.QMessageBox()
             msg.setWindowTitle('Aviso')
@@ -224,10 +221,12 @@ class Eventos():
 
     def importardatosxls(self):
         try:
-            filename, _ = var.dlgabrir.getOpenFileName(None, 'Importar datos', '',
-                                                    '*.xls;;All Files(*)')
+            drivers.Drivers.limpiapanel(self)
+
+            filename, _ = var.dlgabrir.getOpenFileName(None, 'Importar datos',
+                                                    '', '*.xls;;All Files (*)')
             if filename:
-                file = filename[0]
+                file = filename
                 documento = xlrd.open_workbook(file)
                 datos = documento.sheet_by_index(0)
                 filas = datos.nrows
@@ -238,37 +237,34 @@ class Eventos():
                     else:
                         new = []
                         for j in range(columnas):
-                            if j == 1:
-                                dato = xlrd.xldate_as_datetime(datos.cell_value(i,j), documento.datemode)
-                                dato = dato.strftime('%d/%m/%Y')
-                                new.append(str(dato))
-                            else:
-                                new.append(str(datos.cell_value(i,j)))
-                        if drivers.Drivers.validarDNI(str(dni)):
+                            new.append(str(datos.cell_value(i, j)))
+                        if drivers.Drivers.validarDNI(str(new[0])):
                             conexion.Conexion.guardardri(new)
                         else:
                             msg = QtWidgets.QMessageBox()
                             msg.setModal(True)
                             msg.setWindowTitle('Aviso')
-                            msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                            msg.setText('DNI NO VÁLIDO', str(dni), 'Pulse para continuar la carga')
+                            msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                            msg.setText('Hay DNI incorrectos')
+                            var.ui.lblValidardni.setText('')
                             msg.exec()
 
-                    if i == filas - 1:
-                        msg = QtWidgets.QMessageBox()
-                        msg.setModal(True)
-                        msg.setWindowTitle('Aviso')
-                        msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                        msg.setText('Importación de Datos Realizada')
-                        msg.exec()
-                conexion.Conexion.selectDrivers(1)
+                msg = QtWidgets.QMessageBox()
+                msg.setModal(True)
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                msg.setText('Importación de Datos Realizada')
+                var.ui.lblValidardni.setText('')
+                msg.exec()
+
+            conexion.Conexion.selectDrivers(1)
 
         except Exception as error:
             msg = QtWidgets.QMessageBox()
             msg.setModal(True)
             msg.setWindowTitle('Aviso')
             msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-            msg.setText(error)
+            msg.setText('Error', error)
             msg.exec()
 
 

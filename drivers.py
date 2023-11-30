@@ -41,12 +41,12 @@ class Drivers():
     @staticmethod
     def validarDNI(dni):
         try:
-            dni = str(dni).upper()  # poner mayúscula
-            var.ui.txtDni.setText(dni)
+            dni = str(dni).upper()
             tabla = "TRWAGMYFPDXBNJZSQVHLCKE"
             dig_ext = "XYZ"
             reemp_dig_ext = {'X': '0', 'Y': '1', 'Z': '2'}
             numeros = "1234567890"
+            print(dni)
             if len(dni) == 9:
                 dig_control = dni[8]
                 dni = dni[:8]
