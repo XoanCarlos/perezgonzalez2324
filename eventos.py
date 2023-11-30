@@ -244,7 +244,16 @@ class Eventos():
                                 new.append(str(dato))
                             else:
                                 new.append(str(datos.cell_value(i,j)))
-                        conexion.Conexion.guardardri(new)
+                        if drivers.Drivers.validarDNI(str(dni)):
+                            conexion.Conexion.guardardri(new)
+                        else:
+                            msg = QtWidgets.QMessageBox()
+                            msg.setModal(True)
+                            msg.setWindowTitle('Aviso')
+                            msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                            msg.setText('DNI NO VÁLIDO', str(dni), 'Pulse para continuar la carga')
+                            msg.exec()
+
                     if i == filas - 1:
                         msg = QtWidgets.QMessageBox()
                         msg.setModal(True)

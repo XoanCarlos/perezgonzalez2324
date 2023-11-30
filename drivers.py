@@ -39,10 +39,9 @@ class Drivers():
             print("error en cargar fecha: ", error)
 
     @staticmethod
-    def validarDNI(self=None):
+    def validarDNI(dni):
         try:
-            dni = var.ui.txtDni.text()
-            dni = dni.upper()  # poner mayúscula
+            dni = str(dni).upper()  # poner mayúscula
             var.ui.txtDni.setText(dni)
             tabla = "TRWAGMYFPDXBNJZSQVHLCKE"
             dig_ext = "XYZ"
@@ -56,6 +55,7 @@ class Drivers():
                 if len(dni) == len([n for n in dni if n in numeros]) and tabla[int(dni) % 23] == dig_control:
                     var.ui.lblValidardni.setStyleSheet('color:green;')  # si es válido se pone una V en color verde
                     var.ui.lblValidardni.setText('V')
+                    return True
                 else:
                     var.ui.lblValidardni.setStyleSheet('color:red;')  # y si no un aspa en color rojo
                     var.ui.lblValidardni.setText('X')
