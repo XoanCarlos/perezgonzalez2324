@@ -221,8 +221,8 @@ class Eventos():
 
     def importardatosxls(self):
         try:
+            estado = 0
             drivers.Drivers.limpiapanel(self)
-
             filename, _ = var.dlgabrir.getOpenFileName(None, 'Importar datos',
                                                     '', '*.xls;;All Files (*)')
             if filename:
@@ -237,18 +237,24 @@ class Eventos():
                     else:
                         new = []
                         for j in range(columnas):
-                            new.append(str(datos.cell_value(i, j)))
+                            if j == 1:
+                                dato = xlrd.xldate_as_datetime(datos.cell_value(i, j), documento.datemode)
+                                dato = dato.strftime('%d/%m/%Y')
+                                new.append(str(dato))
+                            else:
+                                new.append(str(datos.cell_value(i, j)))
                         if drivers.Drivers.validarDNI(str(new[0])):
                             conexion.Conexion.guardardri(new)
-                        else:
+                        elif estado == 0:
+                            estado = 1
                             msg = QtWidgets.QMessageBox()
                             msg.setModal(True)
                             msg.setWindowTitle('Aviso')
                             msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
                             msg.setText('Hay DNI incorrectos')
-                            var.ui.lblValidardni.setText('')
                             msg.exec()
-
+                var.ui.lblValidardni.setText('')
+                var.ui.txtDni.setText('')
                 msg = QtWidgets.QMessageBox()
                 msg.setModal(True)
                 msg.setWindowTitle('Aviso')
@@ -256,7 +262,6 @@ class Eventos():
                 msg.setText('Importación de Datos Realizada')
                 var.ui.lblValidardni.setText('')
                 msg.exec()
-
             conexion.Conexion.selectDrivers(1)
 
         except Exception as error:

@@ -20,7 +20,7 @@ class Main(QtWidgets.QMainWindow):
         var.calendar = Calendar()
         var.dlgacerca = DlgAcerca()
         var.dlgabrir = FileDialogAbrir()
-        self.driver = Drivers()
+        #self.driver = Drivers()
         conexion.Conexion.conexion()
         conexion.Conexion.cargaprov()
         estado = 1
@@ -50,8 +50,8 @@ class Main(QtWidgets.QMainWindow):
         
         zona eventos cajas de texto
         '''
-        #var.ui.txtDni.editingFinished.connect(Drivers.validarDNI(lambda: Drivers.validarDNI(var.ui.txtDni.text() or '')))
-        var.ui.txtDni.editingFinished.connect(lambda: Drivers.validarDNI(var.ui.txtDni.displayText()))
+        var.ui.txtDni.editingFinished.connect(lambda: drivers.Drivers.validarDNI(var.ui.txtDni.text()))
+        #var.ui.txtDni.editingFinished.connect(lambda: drivers.Drivers.validarDNI(var.ui.txtDni.displayText()))
 
         var.ui.txtNome.editingFinished.connect(eventos.Eventos.formatCajatexto)
         var.ui.txtApel.editingFinished.connect(eventos.Eventos.formatCajatexto)
