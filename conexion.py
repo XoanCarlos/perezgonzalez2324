@@ -167,7 +167,7 @@ class Conexion():
                             msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
                             msg.setText('Datos Conductor Modificados')
                             msg.exec()
-                            Conexion.selectDrivers(1)
+                            Conexion.selectDrivers(0)
                     else:
                         msg = QtWidgets.QMessageBox()
                         msg.setWindowTitle('Aviso')
@@ -183,7 +183,6 @@ class Conexion():
                     ano = datetime.now().year
                     data = var.calendar.selectionChanged.connect(drivers.Drivers.cargaFecha(QtCore.QDate))
                     data = drivers.Drivers.cargaFecha(QtCore.QDate)
-                    print(data)
 
                     if registro[11] != '':
                         query1 = QtSql.QSqlQuery()
@@ -197,7 +196,7 @@ class Conexion():
                             msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
                             msg.setText('Baja Modificada. Nueva Fecha Baja:', str(data))
                             msg.exec()
-                            Conexion.selectDrivers(2)
+                        Conexion.selectDrivers(0)
                     else:
                         msg = QtWidgets.QMessageBox()
                         msg.setWindowTitle('Aviso')
