@@ -176,12 +176,11 @@ class Conexion():
                         msg.exec()
                         Conexion.selectDrivers(1)
                 elif opcion == QtWidgets.QMessageBox.StandardButton.No:
-                    var.calendar = Calendar()
                     var.calendar.show()
                     dia = datetime.now().day
                     mes = datetime.now().month
                     ano = datetime.now().year
-                    data = var.calendar.selectionChanged.connect(drivers.Drivers.cargaFecha(QtCore.QDate))
+                    data = var.dlgcalendar.Calendar.selectionChanged.connect(drivers.Drivers.cargaFecha(QtCore.QDate))
                     data = drivers.Drivers.cargaFecha(QtCore.QDate)
 
                     if registro[11] != '':

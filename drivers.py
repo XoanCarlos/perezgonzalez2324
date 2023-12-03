@@ -5,7 +5,6 @@ import var
 
 
 class Drivers():
-
     @staticmethod
     def limpiapanel(self):
         try:
