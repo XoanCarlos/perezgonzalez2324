@@ -177,12 +177,15 @@ class Conexion():
                         Conexion.selectDrivers(1)
                 elif opcion == QtWidgets.QMessageBox.StandardButton.No:
                     var.calendar2 = QtWidgets.QCalendarWidget()
-                    var.calendar2.show()
-                    var.calendar2.selectionChanged.connect(Conexion.showSelectedDate)
-
-                    data = Conexion.showSelectedDate(self = None)
-                    print('hola')
+                    dia = datetime.now().day
+                    mes = datetime.now().month
+                    ano = datetime.now().year
+                    var.calendar2.setSelectedDate((QtCore.QDate(ano, mes, dia)))
+                    var.calendar2.clicked.connect(Conexion.handleDateClick)
+                    #var.calendar2.selectionChanged.connect(Conexion.showSelectedDate)
+                    data = var.calendar2.getSelectedDate()
                     data = data.toString("dd/MM/yyyy")
+                    var.calendar2.show()
                     print(data)
                     if registro[11] != '':
                         query1 = QtSql.QSqlQuery()
@@ -239,10 +242,9 @@ class Conexion():
         except Exception as error:
             print('error en modificar driver en conexion ', error)
 
-    def showSelectedDate(self  = None):
-        selected_date = var.calendar2.selectedDate()
-        return selected_date
 
+    def handleDateClick(self, date):
+        Conexion.showSelectedDate(date)
     def borraDriv(dni):
         try:
             query1 = QtSql.QSqlQuery()
