@@ -39,6 +39,7 @@ class Drivers():
 
     def validarDNI(dni):
         try:
+            print(dni)
             dni = str(dni).upper()
             var.ui.txtDni.setText(str(dni))
             tabla = "TRWAGMYFPDXBNJZSQVHLCKE"

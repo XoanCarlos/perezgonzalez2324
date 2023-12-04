@@ -1,5 +1,6 @@
 global ui
 global calendar
+global calendar2
 global salir
 global acercade
 global dlgabrir

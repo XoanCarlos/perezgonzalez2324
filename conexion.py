@@ -176,13 +176,14 @@ class Conexion():
                         msg.exec()
                         Conexion.selectDrivers(1)
                 elif opcion == QtWidgets.QMessageBox.StandardButton.No:
-                    var.calendar.show()
-                    dia = datetime.now().day
-                    mes = datetime.now().month
-                    ano = datetime.now().year
-                    data = var.dlgcalendar.Calendar.selectionChanged.connect(drivers.Drivers.cargaFecha(QtCore.QDate))
-                    data = drivers.Drivers.cargaFecha(QtCore.QDate)
+                    var.calendar2 = QtWidgets.QCalendarWidget()
+                    var.calendar2.show()
+                    var.calendar2.selectionChanged.connect(Conexion.showSelectedDate)
 
+                    data = Conexion.showSelectedDate(self = None)
+                    print('hola')
+                    data = data.toString("dd/MM/yyyy")
+                    print(data)
                     if registro[11] != '':
                         query1 = QtSql.QSqlQuery()
                         query1.prepare('update drivers set bajadri = :data where '
@@ -193,7 +194,7 @@ class Conexion():
                             msg = QtWidgets.QMessageBox()
                             msg.setWindowTitle('Aviso')
                             msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                            msg.setText('Baja Modificada. Nueva Fecha Baja:', str(data))
+                            msg.setText('Baja Modificada. Nueva Fecha Baja')
                             msg.exec()
                         Conexion.selectDrivers(0)
                     else:
@@ -237,6 +238,10 @@ class Conexion():
                     msg.exec()
         except Exception as error:
             print('error en modificar driver en conexion ', error)
+
+    def showSelectedDate(self  = None):
+        selected_date = var.calendar2.selectedDate()
+        return selected_date
 
     def borraDriv(dni):
         try:

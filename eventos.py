@@ -1,11 +1,9 @@
 import os.path
 from datetime import datetime
-
 from PyQt6 import QtWidgets, QtCore, QtGui
 
 import locale
 import sys
-
 import drivers
 import var
 import zipfile
@@ -238,11 +236,13 @@ class Eventos():
                         new = []
                         for j in range(columnas):
                             if j == 1:
+                                #new.append(str(datos.cell_value(i,j)))
                                 dato = xlrd.xldate_as_datetime(datos.cell_value(i, j), documento.datemode)
                                 dato = dato.strftime('%d/%m/%Y')
                                 new.append(str(dato))
                             else:
                                 new.append(str(datos.cell_value(i, j)))
+                        print(str(new[0]))
                         if drivers.Drivers.validarDNI(str(new[0])):
                             conexion.Conexion.guardardri(new)
                         elif estado == 0:
