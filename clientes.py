@@ -52,7 +52,7 @@ class Clientes():
             for i in cliente:
                 newcli.append(i.text().title())
             prov = var.ui.cmbprocli.currentText()
-            print(newcli)
+
             newcli.insert(5, prov)
             muni = var.ui.cmbmunicli.currentText()
             newcli.insert(6, muni)

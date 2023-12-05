@@ -371,7 +371,7 @@ class Conexion():
 
 
 
-    def guardacli(newcli):
+    def guardarcli(newcli):
         try:
             if (newcli[0].strip() == "" or newcli[1].strip() == ""):
                 mbox = QtWidgets.QMessageBox()
@@ -383,19 +383,17 @@ class Conexion():
                 mbox.exec()
             else:
                 query = QtSql.QSqlQuery()
-                query.prepare('insert into cliente (dnidri, altadri, apeldri, nombredri, direcciondri, provdri, '
-                              ' munidri, movildri, salario, carnet) VALUES (:dni, :alta, :apel, :nombre,:direccion, '
-                              ' :provincia, :municipio, :movil, :salario, :carnet)')
-                query.bindValue(':dni', str(newdriver[0]))
-                query.bindValue(':alta', str(newdriver[1]))
-                query.bindValue(':apel', str(newdriver[2]))
-                query.bindValue(':nombre', str(newdriver[3]))
-                query.bindValue(':direccion', str(newdriver[4]))
-                query.bindValue(':provincia', str(newdriver[5]))
-                query.bindValue(':municipio', str(newdriver[6]))
-                query.bindValue(':movil', str(newdriver[7]))
-                query.bindValue(':salario', str(newdriver[8]))
-                query.bindValue(':carnet', str(newdriver[9]))
+                query.prepare('insert into cliente (dni, altacli, razonsocial, direccion, provincia, '
+                              ' municipio, telefono) VALUES (:dni, :alta, :razon, :direccion, '
+                              ' :provincia, :municipio, :movil)')
+                query.bindValue(':dni', str(newcli[0]))
+                query.bindValue(':alta', str(newcli[1]))
+                query.bindValue(':razon', str(newcli[2]))
+                query.bindValue(':direccion', str(newcli[3]))
+                query.bindValue(':provincia', str(newcli[4]))
+                query.bindValue(':municipio', str(newcli[6]))
+                query.bindValue(':movil', str(newcli[7]))
+
 
                 if query.exec():
                     return True
