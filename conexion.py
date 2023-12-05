@@ -29,6 +29,39 @@ class Conexion():
         except Exception as error:
             print('error en la carga del combo prov', error)
 
+    def cargaprovcli(self=None):
+        try:
+            var.ui.cmbProv.clear()
+            query = QtSql.QSqlQuery()
+            query.prepare('select provincia from provincias')
+            if query.exec():
+                var.ui.cmbprocli.addItem('')
+                while query.next():
+                    var.ui.cmbprocli.addItem(query.value(0))
+        except Exception as error:
+            print('error en la carga del combo prov', error)
+
+    def selmunicli(self=None):
+        try:
+            id = 0
+            var.ui.cmbmunicli.clear()
+            prov = var.ui.cmbprocli.currentText()
+            query = QtSql.QSqlQuery()
+            query.prepare('select idprov from provincias where provincia = :prov')
+            query.bindValue(':prov', prov)
+            if query.exec():
+                while query.next():
+                    id = query.value(0)
+            query1 = QtSql.QSqlQuery()
+            query1.prepare('select municipio from municipios where idprov = :id')
+            query1.bindValue(':id', int(id))
+            if query1.exec():
+                var.ui.cmbmunicli.addItem('')
+                while query1.next():
+                    var.ui.cmbmunicli.addItem(query1.value(0))
+        except Exception as error:
+            print('error seleccion municipios: ', error)
+
     def selMuni(self=None):
         try:
             id = 0
@@ -338,3 +371,36 @@ class Conexion():
 
 
 
+    def guardacli(newcli):
+        try:
+            if (newcli[0].strip() == "" or newcli[1].strip() == ""):
+                mbox = QtWidgets.QMessageBox()
+                mbox.setWindowTitle('Aviso')
+                mbox.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                mensaje = 'Faltan Datos. Debe introducir al menos:\n\nDNI, Apellidos, Nombre, Fecha de alta y Móvil'
+                mbox.setText(mensaje)
+                mbox.exec()
+            else:
+                query = QtSql.QSqlQuery()
+                query.prepare('insert into cliente (dnidri, altadri, apeldri, nombredri, direcciondri, provdri, '
+                              ' munidri, movildri, salario, carnet) VALUES (:dni, :alta, :apel, :nombre,:direccion, '
+                              ' :provincia, :municipio, :movil, :salario, :carnet)')
+                query.bindValue(':dni', str(newdriver[0]))
+                query.bindValue(':alta', str(newdriver[1]))
+                query.bindValue(':apel', str(newdriver[2]))
+                query.bindValue(':nombre', str(newdriver[3]))
+                query.bindValue(':direccion', str(newdriver[4]))
+                query.bindValue(':provincia', str(newdriver[5]))
+                query.bindValue(':municipio', str(newdriver[6]))
+                query.bindValue(':movil', str(newdriver[7]))
+                query.bindValue(':salario', str(newdriver[8]))
+                query.bindValue(':carnet', str(newdriver[9]))
+
+                if query.exec():
+                    return True
+                else:
+                   return False
+                Conexion.mostrardrivers(self=None)
+        except Exception as e:
+                print("otro error", e)

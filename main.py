@@ -1,3 +1,4 @@
+import clientes
 from drivers import *
 from MainWindow import *
 from windowaux import *
@@ -23,6 +24,7 @@ class Main(QtWidgets.QMainWindow):
         #self.driver = Drivers()
         conexion.Conexion.conexion()
         conexion.Conexion.cargaprov()
+        conexion.Conexion.cargaprovcli()
         estado = 1
         conexion.Conexion.selectDrivers(estado)
 
@@ -31,11 +33,12 @@ class Main(QtWidgets.QMainWindow):
         zona de eventos de botones
         '''
         var.ui.btnCalendar.clicked.connect(eventos.Eventos.abrirCalendar)
+        var.ui.btnCalendardri.clicked.connect(eventos.Eventos.abrirCalendar)
         var.ui.btnAltaDriver.clicked.connect(drivers.Drivers.altadriver)
         var.ui.btnBuscadri.clicked.connect(drivers.Drivers.buscaDri)
         var.ui.btnModifDriver.clicked.connect(drivers.Drivers.modifDri)
         var.ui.btnBajaDriver.clicked.connect(drivers.Drivers.borraDriv)
-
+        var.ui.btnAltacli.clicked.connect(clientes.Clientes.altacliente)
         """
         
         zona de eventos del menubar
@@ -46,11 +49,13 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionRestaurar_Copia_Seguridad.triggered.connect(eventos.Eventos.restaurarbackup)
         var.ui.actionExportar_Datos_Excel.triggered.connect(eventos.Eventos.exportardatosxls)
         var.ui.actionImportar_Datos_XLS.triggered.connect(eventos.Eventos.importardatosxls)
+
         '''
         
         zona eventos cajas de texto
         '''
         var.ui.txtDni.editingFinished.connect(lambda: drivers.Drivers.validarDNI(var.ui.txtDni.text()))
+        var.ui.txtdnicli.editingFinished.connect(lambda: clientes.Clientes.validarDNIcli(var.ui.txtdnicli.text()))
         #var.ui.txtDni.editingFinished.connect(lambda: drivers.Drivers.validarDNI(var.ui.txtDni.displayText()))
 
         var.ui.txtNome.editingFinished.connect(eventos.Eventos.formatCajatexto)
@@ -80,6 +85,7 @@ class Main(QtWidgets.QMainWindow):
     
         '''
         var.ui.cmbProv.currentIndexChanged.connect(conexion.Conexion.selMuni)
+        var.ui.cmbprocli.currentIndexChanged.connect(conexion.Conexion.selmunicli)
         var.ui.rtbGroup.buttonClicked.connect(drivers.Drivers.selEstado)
 
     def closeEvent(self, event):
