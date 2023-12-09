@@ -373,6 +373,7 @@ class Conexion():
 
     def guardarcli(newcli):
         try:
+            print(newcli)
             if (newcli[0].strip() == "" or newcli[1].strip() == ""):
                 mbox = QtWidgets.QMessageBox()
                 mbox.setWindowTitle('Aviso')
@@ -383,7 +384,7 @@ class Conexion():
                 mbox.exec()
             else:
                 query = QtSql.QSqlQuery()
-                query.prepare('insert into cliente (dni, altacli, razonsocial, direccion, provincia, '
+                query.prepare('insert into clientes (dni, altacli, razonsocial, direccion, provincia, '
                               ' municipio, telefono) VALUES (:dni, :alta, :razon, :direccion, '
                               ' :provincia, :municipio, :movil)')
                 query.bindValue(':dni', str(newcli[0]))
@@ -391,8 +392,8 @@ class Conexion():
                 query.bindValue(':razon', str(newcli[2]))
                 query.bindValue(':direccion', str(newcli[3]))
                 query.bindValue(':provincia', str(newcli[4]))
-                query.bindValue(':municipio', str(newcli[6]))
-                query.bindValue(':movil', str(newcli[7]))
+                query.bindValue(':municipio', str(newcli[5]))
+                query.bindValue(':movil', str(newcli[6]))
 
 
                 if query.exec():

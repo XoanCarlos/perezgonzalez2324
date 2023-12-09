@@ -53,9 +53,9 @@ class Clientes():
                 newcli.append(i.text().title())
             prov = var.ui.cmbprocli.currentText()
 
-            newcli.insert(5, prov)
+            newcli.insert(4, prov)
             muni = var.ui.cmbmunicli.currentText()
-            newcli.insert(6, muni)
+            newcli.insert(5, muni)
             valor = conexion.Conexion.guardarcli(newcli)
             if valor == True:
                 mbox = QtWidgets.QMessageBox()
