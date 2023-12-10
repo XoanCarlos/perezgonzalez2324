@@ -1,8 +1,10 @@
 from CalendarWindow import *
 from dlgAcerca import *
 from datetime import datetime
-import var, drivers, eventos
-
+import var
+import drivers
+import eventos
+import clientes
 
 class DlgAcerca(QtWidgets.QDialog):
     def __init__(self):
@@ -22,6 +24,7 @@ class Calendar(QtWidgets.QDialog):
         ano = datetime.now().year
         var.calendar.Calendar.setSelectedDate((QtCore.QDate(ano,mes,dia)))
         var.calendar.Calendar.clicked.connect(drivers.Drivers.cargaFecha)
+        var.calendar.Calendar.clicked.connect(clientes.Clientes.cargaFecha2)
 
 class FileDialogAbrir(QtWidgets.QFileDialog):
     def __init__(self):
