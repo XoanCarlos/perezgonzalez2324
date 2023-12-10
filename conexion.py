@@ -3,6 +3,7 @@ from windowaux import *
 from datetime import date, datetime
 import drivers
 import var
+import clientes
 
 
 class Conexion():
@@ -371,8 +372,6 @@ class Conexion():
         except Exception as error:
             print('error devolver todos los drivers ', error)
 
-
-
     def guardarcli(newcli):
         try:
             print(newcli)
@@ -402,6 +401,62 @@ class Conexion():
                     return True
                 else:
                    return False
-                Conexion.mostrardrivers(self=None)
+                Conexion.mostrarclientes(self=None)
         except Exception as e:
                 print("otro error", e)
+
+    @staticmethod
+    def mostrarclientes(estado):
+        try:
+            registros = []
+            if var.ui.chkclientes.isChecked():
+                estado = 1
+                #Conexion.selectDrivers(estado)
+            else:
+                query1 = QtSql.QSqlQuery()
+                query1.prepare("select codcli, razonsocial, telefono, "
+                               " provincia, baja from clientes")
+                if query1.exec():
+                    while query1.next():
+                        row = [query1.value(i) for i in range(query1.record().count())]  # función lambda
+                        registros.append(row)
+            if registros:
+                clientes.Clientes.cargartablacli(registros)
+                return registros
+            else:
+                var.ui.tabDrivers.setRowCount(0)
+
+        except Exception as error:
+            print('error mostrar resultados', error)
+
+    def borraCli(dni):
+        try:
+            query1 = QtSql.QSqlQuery()
+            query1.prepare('select baja from clientes where '
+                          ' dni = :dni')
+            query1.bindValue(':dni', str(dni))
+            if query1.exec():
+                while query1.next():
+                    valor = query1.value(0)
+            if str(valor) == '':
+                fecha = datetime.today()
+                fecha = fecha.strftime('%d/%m/%Y')
+                query = QtSql.QSqlQuery()
+                query.prepare('update drivers set baja = :fechabaja where '
+                              ' dni = :dni')
+                query.bindValue(':fechabaja', str(fecha))
+                query.bindValue(':dni', str(dni))
+                if query.exec():
+                    msg = QtWidgets.QMessageBox()
+                    msg.setWindowTitle('Aviso')
+                    msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                    msg.setText('Cliente dado de Baja')
+                    msg.exec()
+            else:
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                msg.setText('No existe cliente o cliente dado de baja anteriormente')
+                msg.exec()
+        except Exception as error:
+            print('error en baja cliente en conexion ', error)

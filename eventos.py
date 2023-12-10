@@ -272,7 +272,19 @@ class Eventos():
             msg.setText('Error', error)
             msg.exec()
 
+    def resizeTabclientes(self):
+        try:
+            header = var.ui.tablaClientes.horizontalHeader()
+            for i in range(4):
+                if i == 0 or i == 4:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+                elif i == 2 or i == 3:
+                    var.ui.tablaClientes.setColumnWidth(i, 200)
 
+                elif i == 1:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
 
+        except Exception as error:
+            print('error resize en tab drivers', error)
 
 

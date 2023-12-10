@@ -10,15 +10,19 @@ class Drivers():
         try:
             listawidgets = [var.ui.lblcodbd, var.ui.txtDni, var.ui.txtDatadriver, var.ui.txtApel, var.ui.txtNome,
                             var.ui.txtDirdriver, var.ui.txtMovil, var.ui.txtSalario, var.ui.lblValidardni]
-
+            cliente = [var.ui.txtdnicli, var.ui.txtaltacli, var.ui.txtrazonsocial,
+                         var.ui.txtdircli, var.ui.txtmovilcli]
             for i in listawidgets:
                 i.setText(None)
-
+            for i in cliente:
+                i.setText(None)
             chklicencia = [var.ui.chkA, var.ui.chkB, var.ui.chkC, var.ui.chkD]
             for i in chklicencia:
                 i.setChecked(False)
             var.ui.cmbProv.setCurrentText('')
             var.ui.cmbMuni.setCurrentText('')
+            var.ui.cmbprocli.setCurrentText('')
+            var.ui.cmbmunicli.setCurrentText('')
             if var.ui.rbtAlta.isChecked():
                 estado = 1
                 conexion.Conexion.selectDrivers(estado)
@@ -211,7 +215,7 @@ class Drivers():
             modifdriver.append('-'.join(licencias))
             conexion.Conexion.modifDriver(modifdriver)
         except Exception as error:
-            print('error en modif drivaer en Drivers', error)
+            print('error en modif driver en Drivers', error)
 
     def borraDriv(self):
         try:

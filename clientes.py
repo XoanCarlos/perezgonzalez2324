@@ -73,3 +73,37 @@ class Clientes():
                 mbox.exec()
         except Exception as error:
             print("error alta cliente", error)
+
+    def cargartablacli(registros):
+        try:
+            var.ui.tablaClientes.clearContents()
+            index = 0
+            for registro in registros:
+                var.ui.tablaClientes.setRowCount(index + 1)  # crea una fila
+                var.ui.tablaClientes.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0])))
+                var.ui.tablaClientes.setItem(index, 1, QtWidgets.QTableWidgetItem(str(registro[1])))
+                var.ui.tablaClientes.setItem(index, 2, QtWidgets.QTableWidgetItem(str(registro[2])))
+                var.ui.tablaClientes.setItem(index, 3, QtWidgets.QTableWidgetItem(str(registro[3])))
+                var.ui.tablaClientes.setItem(index, 4, QtWidgets.QTableWidgetItem(str(registro[4])))
+
+                var.ui.tablaClientes.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaClientes.item(index, 2).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaClientes.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaClientes.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+
+                index += 1
+        except Exception as error:
+            print("error cargar dato en tabla", error)
+
+
+    def bajacliente(self):
+        try:
+            dni = var.ui.txtdnicli.text()
+            conexion.Conexion.borraCli(dni)
+            #conexion.Conexion.selectDrivers(1)
+        except Exception as error:
+            mbox = QtWidgets.QMessageBox()
+            mbox.setWindowTitle('Aviso')
+            mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+            mbox.setText('El conductor no existe o no se puede borrar')
+            mbox.exec()

@@ -1,5 +1,4 @@
 import clientes
-from drivers import *
 from MainWindow import *
 from windowaux import *
 import var
@@ -26,7 +25,10 @@ class Main(QtWidgets.QMainWindow):
         conexion.Conexion.cargaprov()
         conexion.Conexion.cargaprovcli()
         estado = 1
+        estadocli = 0
         conexion.Conexion.selectDrivers(estado)
+        conexion.Conexion.mostrarclientes(estadocli)
+        eventos.Eventos.cargastatusbar(self)
 
         '''
        
@@ -39,6 +41,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnModifDriver.clicked.connect(drivers.Drivers.modifDri)
         var.ui.btnBajaDriver.clicked.connect(drivers.Drivers.borraDriv)
         var.ui.btnAltacli.clicked.connect(clientes.Clientes.altacliente)
+        var.ui.btnBajacli.clicked.connect(clientes.Clientes.bajacliente)
         """
         
         zona de eventos del menubar
@@ -77,7 +80,9 @@ class Main(QtWidgets.QMainWindow):
         eventos de tablas        
         '''
         eventos.Eventos.resizeTabdrivers(self)
+        eventos.Eventos.resizeTabclientes(self)
         var.ui.tabDrivers.clicked.connect(drivers.Drivers.cargadriver)
+
 
         '''
         
