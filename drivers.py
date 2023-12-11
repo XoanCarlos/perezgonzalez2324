@@ -1,5 +1,6 @@
 from PyQt6 import QtWidgets, QtCore, QtGui
 
+import clientes
 import conexion
 import var
 
@@ -10,7 +11,7 @@ class Drivers():
         try:
             listawidgets = [var.ui.lblcodbd, var.ui.txtDni, var.ui.txtDatadriver, var.ui.txtApel, var.ui.txtNome,
                             var.ui.txtDirdriver, var.ui.txtMovil, var.ui.txtSalario, var.ui.lblValidardni]
-            cliente = [var.ui.txtdnicli, var.ui.txtaltacli, var.ui.txtrazonsocial,
+            cliente = [var.ui.lblcodcliente, var.ui.txtdnicli, var.ui.txtaltacli, var.ui.txtrazonsocial,
                          var.ui.txtdircli, var.ui.txtmovilcli]
             for i in listawidgets:
                 i.setText(None)
@@ -29,6 +30,7 @@ class Drivers():
             else:
                 registros = conexion.Conexion.mostrardrivers(self)
                 Drivers.cargartabladri(registros)
+            conexion.Conexion.mostrarclientes(0)
         except Exception as error:
             print('error limpia panel driver: ', error)
 

@@ -42,6 +42,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnBajaDriver.clicked.connect(drivers.Drivers.borraDriv)
         var.ui.btnAltacli.clicked.connect(clientes.Clientes.altacliente)
         var.ui.btnBajacli.clicked.connect(clientes.Clientes.bajacliente)
+        var.ui.btnbuscacli.clicked.connect(clientes.Clientes.buscacli)
+        var.ui.btnModifcli.clicked.connect(clientes.Clientes.modifcli)
         """
         
         zona de eventos del menubar
@@ -82,6 +84,7 @@ class Main(QtWidgets.QMainWindow):
         eventos.Eventos.resizeTabdrivers(self)
         eventos.Eventos.resizeTabclientes(self)
         var.ui.tabDrivers.clicked.connect(drivers.Drivers.cargadriver)
+        var.ui.tablaClientes.clicked.connect(clientes.Clientes.cargacliente)
 
 
         '''
@@ -92,14 +95,21 @@ class Main(QtWidgets.QMainWindow):
         var.ui.cmbProv.currentIndexChanged.connect(conexion.Conexion.selMuni)
         var.ui.cmbprocli.currentIndexChanged.connect(conexion.Conexion.selmunicli)
         var.ui.rtbGroup.buttonClicked.connect(drivers.Drivers.selEstado)
+        var.ui.chkclientes.stateChanged.connect(clientes.Clientes.selectclientes)
 
     def closeEvent(self, event):
-        #event.ignore()
-        # eventos.Eventos.mostrarsalir()
-        mbox = QtWidgets.QMessageBox.information(self, 'Salir', '¿Estás seguro de que quieres salir?',
-            QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
+        mbox = QtWidgets.QMessageBox(self)
+        mbox.setWindowTitle('Salir')
+        mbox.setText('¿Estás seguro de que quieres salir?')
+        mbox.setIcon(QtWidgets.QMessageBox.Icon.Question)
 
-        if mbox == QtWidgets.QMessageBox.StandardButton.Yes:
+        # Cambiar texto de los botones a español
+        boton_si = mbox.addButton('Sí', QtWidgets.QMessageBox.ButtonRole.YesRole)
+        boton_no = mbox.addButton('No', QtWidgets.QMessageBox.ButtonRole.NoRole)
+
+        # Mostrar el cuadro de diálogo
+        mbox.exec()
+        if mbox.clickedButton() == boton_si:
             event.accept()
         else:
             event.ignore()

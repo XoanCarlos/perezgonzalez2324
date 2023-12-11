@@ -409,9 +409,15 @@ class Conexion():
     def mostrarclientes(estado):
         try:
             registros = []
-            if var.ui.chkclientes.isChecked():
-                estado = 1
-                #Conexion.selectDrivers(estado)
+            if estado == 1:
+                query1 = QtSql.QSqlQuery()
+                query1.prepare("select codcli, razonsocial, telefono, "
+                               " provincia, baja from clientes where baja"
+                               " is null ")
+                if query1.exec():
+                    while query1.next():
+                        row = [query1.value(i) for i in range(query1.record().count())]  # función lambda
+                        registros.append(row)
             else:
                 query1 = QtSql.QSqlQuery()
                 query1.prepare("select codcli, razonsocial, telefono, "
@@ -442,7 +448,7 @@ class Conexion():
                 fecha = datetime.today()
                 fecha = fecha.strftime('%d/%m/%Y')
                 query = QtSql.QSqlQuery()
-                query.prepare('update drivers set baja = :fechabaja where '
+                query.prepare('update clientes set baja = :fechabaja where '
                               ' dni = :dni')
                 query.bindValue(':fechabaja', str(fecha))
                 query.bindValue(':dni', str(dni))
@@ -452,6 +458,7 @@ class Conexion():
                     msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
                     msg.setText('Cliente dado de Baja')
                     msg.exec()
+                Conexion.mostrarclientes(0)
             else:
                 msg = QtWidgets.QMessageBox()
                 msg.setWindowTitle('Aviso')
@@ -460,3 +467,35 @@ class Conexion():
                 msg.exec()
         except Exception as error:
             print('error en baja cliente en conexion ', error)
+
+    def onecliente(codigo):
+        try:
+            registro = []
+
+            query = QtSql.QSqlQuery()
+            query.prepare('select * from clientes where codcli = :codigo')
+            query.bindValue(':codigo', int(codigo))
+            if query.exec():
+                while query.next():
+                    for i in range(9):
+                        registro.append(str(query.value(i)))
+            return registro
+        except Exception as error:
+            print('error en fichero conexion datos de 1 driver: ', error)
+    def codcli(dni):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare('select codcli from clientes where dni = :dnicli')
+            query.bindValue(':dnicli', str(dni))
+            if query.exec():
+                while query.next():
+                    codigo = query.value(0)
+                if codigo is not None:
+                    registro = Conexion.onecliente(codigo)
+                    return registro
+        except Exception as error:
+            mbox = QtWidgets.QMessageBox()
+            mbox.setWindowTitle('Aviso')
+            mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+            mbox.setText('El conductor no existe o error de búsqueda')
+            mbox.exec()

@@ -71,6 +71,7 @@ class Clientes():
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
                 mbox.setText("Asegúrese de que el cliente no existe")
                 mbox.exec()
+            conexion.Conexion.mostrarclientes(0)
         except Exception as error:
             print("error alta cliente", error)
 
@@ -107,3 +108,74 @@ class Clientes():
             mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
             mbox.setText('El conductor no existe o no se puede borrar')
             mbox.exec()
+
+
+    def cargacliente(self = None):
+        try:
+            fila = var.ui.tablaClientes.selectedItems()
+            row = [dato.text() for dato in fila]
+            registro = conexion.Conexion.onecliente(row[0])
+
+            Clientes.cargardatos(registro)
+
+        except Exception as error:
+            print('error cargar datos de 1 cliente marcando en la tabla: ', error)
+
+    def cargardatos(registro):
+        try:
+            datos = [var.ui.lblcodcliente, var.ui.txtdnicli, var.ui.txtaltacli,
+                     var.ui.txtrazonsocial, var.ui.txtdircli, var.ui.cmbprocli,
+                     var.ui.cmbmunicli, var.ui.txtmovilcli]
+            for i, dato in enumerate(datos):
+                if i == 5 or i == 6:
+                    dato.setCurrentText(str(registro[i]))
+                else:
+                    dato.setText(str(registro[i]))
+
+        except Exception as error:
+            print("cargar datos en panel gestión", error)
+
+    def selectclientes(self):
+        try:
+            if var.ui.chkclientes.isChecked():
+                conexion.Conexion.mostrarclientes(0)
+            else:
+                conexion.Conexion.mostrarclientes(1)
+
+        except Exception as error:
+            print("en select clientes", error)
+
+    def buscacli(self):
+        try:
+            dni = var.ui.txtdnicli.text()
+            registro = conexion.Conexion.codcli(dni)
+            if var.ui.chkclientes.isChecked():
+                conexion.Conexion.mostrarclientes(0)
+            else:
+                conexion.Conexion.mostrarclientes(1)
+            codigo = var.ui.lblcodcliente.text()
+            for fila in range(var.ui.tablaClientes.rowCount()):
+                if var.ui.tablaClientes.item(fila, 0).text() == str(codigo):
+                    for columna in range(var.ui.tablaClientes.columnCount()):
+                        item = var.ui.tablaClientes.item(fila, columna)
+                        if item is not None:
+                            item.setBackground(QtGui.QColor(255, 241, 150))
+        except Exception as error:
+            print(error, "en busca de datos de un cliente")
+
+    def modifcli(self):
+        try:
+            driver = [var.ui.lblcodcliente, var.ui.txtdnicli, var.ui.txtaltacli,
+                     var.ui.txtrazonsocial, var.ui.txtdircli, var.ui.txtmovilcli]
+            modifdriver = []
+            for i in driver:
+                modifdriver.append(i.text().title())
+            prov = var.ui.cmbprocli.currentText()
+            modifdriver.insert(5, prov)
+            muni = var.ui.cmbmunicli.currentText()
+            modifdriver.insert(6, muni)
+            print(modifdriver)
+
+            #conexion.Conexion.modifDriver(modifdriver)
+        except Exception as error:
+            print('error en modif cliente en Cientes', error)
