@@ -165,17 +165,15 @@ class Clientes():
 
     def modifcli(self):
         try:
-            driver = [var.ui.lblcodcliente, var.ui.txtdnicli, var.ui.txtaltacli,
+            cliente = [var.ui.lblcodcliente, var.ui.txtdnicli, var.ui.txtaltacli,
                      var.ui.txtrazonsocial, var.ui.txtdircli, var.ui.txtmovilcli]
-            modifdriver = []
-            for i in driver:
-                modifdriver.append(i.text().title())
+            modifcli = []
+            for i in cliente:
+                modifcli.append(i.text().title())
             prov = var.ui.cmbprocli.currentText()
-            modifdriver.insert(5, prov)
+            modifcli.insert(5, prov)
             muni = var.ui.cmbmunicli.currentText()
-            modifdriver.insert(6, muni)
-            print(modifdriver)
-
-            #conexion.Conexion.modifDriver(modifdriver)
+            modifcli.insert(6, muni)
+            conexion.Conexion.modifcliente(modifcli)
         except Exception as error:
             print('error en modif cliente en Cientes', error)

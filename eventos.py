@@ -16,6 +16,7 @@ import xlrd
 locale.setlocale(locale.LC_TIME, 'es_ES')
 locale.setlocale(locale.LC_MONETARY, 'es_ES')
 
+
 class Eventos():
     @staticmethod
     def abrirCalendar(self):
@@ -59,7 +60,8 @@ class Eventos():
 
     def cargastatusbar(self):
         try:
-            fecha = datetime.now().strftime("%A  -  " + "%d/%m/%Y")
+
+            fecha = datetime.now().strftime("%A  -  " + "%d/%m/%Y").encode('iso-8859-1').decode('utf-8')
             self.labelstatus = QtWidgets.QLabel(fecha, self)
             self.labelstatus.setAlignment(QtCore.Qt.AlignmentFlag.AlignHCenter)
             var.ui.statusbar.addPermanentWidget(self.labelstatus, 1)

@@ -81,7 +81,7 @@
       <property name="maximumSize">
        <size>
         <width>16777215</width>
-        <height>800</height>
+        <height>1024</height>
        </size>
       </property>
       <property name="sizeIncrement">
@@ -107,7 +107,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="tabBarAutoHide">
        <bool>false</bool>

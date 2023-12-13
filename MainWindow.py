@@ -43,7 +43,7 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.panelPrincipal.sizePolicy().hasHeightForWidth())
         self.panelPrincipal.setSizePolicy(sizePolicy)
         self.panelPrincipal.setMinimumSize(QtCore.QSize(900, 800))
-        self.panelPrincipal.setMaximumSize(QtCore.QSize(16777215, 800))
+        self.panelPrincipal.setMaximumSize(QtCore.QSize(16777215, 1024))
         self.panelPrincipal.setSizeIncrement(QtCore.QSize(0, 0))
         font = QtGui.QFont()
         font.setPointSize(10)
@@ -732,7 +732,7 @@ class Ui_MainWindow(object):
         self.toolBar.addAction(self.actionbarSalir)
 
         self.retranslateUi(MainWindow)
-        self.panelPrincipal.setCurrentIndex(1)
+        self.panelPrincipal.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         MainWindow.setTabOrder(self.txtDatadriver, self.txtSalario)
         MainWindow.setTabOrder(self.txtSalario, self.chkB)

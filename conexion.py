@@ -374,7 +374,9 @@ class Conexion():
 
     def guardarcli(newcli):
         try:
-            print(newcli)
+            estado = Conexion.controlbajacli(newcli[0])
+            print(estado)
+
             if (newcli[0].strip() == "" or newcli[1].strip() == ""):
                 mbox = QtWidgets.QMessageBox()
                 mbox.setWindowTitle('Aviso')
@@ -384,24 +386,35 @@ class Conexion():
                 mbox.setText(mensaje)
                 mbox.exec()
             else:
-                query = QtSql.QSqlQuery()
-                query.prepare('insert into clientes (dni, altacli, razonsocial, direccion, provincia, '
-                              ' municipio, telefono) VALUES (:dni, :alta, :razon, :direccion, '
-                              ' :provincia, :municipio, :movil)')
-                query.bindValue(':dni', str(newcli[0]))
-                query.bindValue(':alta', str(newcli[1]))
-                query.bindValue(':razon', str(newcli[2]))
-                query.bindValue(':direccion', str(newcli[3]))
-                query.bindValue(':provincia', str(newcli[4]))
-                query.bindValue(':municipio', str(newcli[5]))
-                query.bindValue(':movil', str(newcli[6]))
-
-
-                if query.exec():
-                    return True
+                if estado == False:
+                    query = QtSql.QSqlQuery()
+                    query.prepare('insert into clientes (dni, altacli, razonsocial, direccion, provincia, '
+                                  ' municipio, telefono) VALUES (:dni, :alta, :razon, :direccion, '
+                                  ' :provincia, :municipio, :movil)')
+                    query.bindValue(':dni', str(newcli[0]))
+                    query.bindValue(':alta', str(newcli[1]))
+                    query.bindValue(':razon', str(newcli[2]))
+                    query.bindValue(':direccion', str(newcli[3]))
+                    query.bindValue(':provincia', str(newcli[4]))
+                    query.bindValue(':municipio', str(newcli[5]))
+                    query.bindValue(':movil', str(newcli[6]))
+                    if query.exec():
+                        return True
+                elif estado == True:
+                    dni = str(var.ui.txtdnicli.text())
+                    query = QtSql.QSqlQuery()
+                    query.prepare('update clientes set baja = NULL where '
+                                  ' dni = :dni')
+                    query.bindValue(':dni', str(dni))
+                    if query.exec():
+                        msg = QtWidgets.QMessageBox()
+                        msg.setWindowTitle('Aviso')
+                        msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                        msg.setText('Cliente dado de Altas')
+                        msg.exec()
                 else:
-                   return False
-                Conexion.mostrarclientes(self=None)
+                    pass
+                Conexion.mostrarclientes(1)
         except Exception as e:
                 print("otro error", e)
 
@@ -499,3 +512,62 @@ class Conexion():
             mbox.setIcon(QtWidgets.QMessageBox.Icon.Warning)
             mbox.setText('El conductor no existe o error de búsqueda')
             mbox.exec()
+
+    def modifcliente(registro):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare('update clientes set dni = :dni, altacli= :alta, razonsocial= :razon, '
+                          ' direccion = :direccion, provincia = :provincia, municipio = :municipio, '
+                          ' telefono = :telefono where codcli = :codigo')
+
+            query.bindValue(':codigo', int(registro[0]))
+            query.bindValue(':dni', str(registro[1]))
+            query.bindValue(':alta', str(registro[2]))
+            query.bindValue(':razon', str(registro[3]))
+            query.bindValue(':direccion', str(registro[4]))
+            query.bindValue(':provincia', str(registro[5]))
+            query.bindValue(':municipio', str(registro[6]))
+            query.bindValue(':telefono', str(registro[7]))
+            if query.exec():
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                msg.setText('Datos Cliente Modificados')
+                msg.exec()
+                Conexion.selectDrivers(1)
+            else:
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                msg.setText(query.lastError().text())
+                msg.exec()
+
+        except Exception as error:
+            print('error modifica cliente en conexion', error)
+
+    def controlbajacli(dni):
+        try:
+            baja = ''
+            codigo = ''
+            query = QtSql.QSqlQuery()
+            query.prepare('select codcli, baja from clientes where dni = :dni')
+            query.bindValue(':dni', str(dni))
+            if query.exec():
+                while query.next():
+                    codigo = str(query.value(0))
+                    baja = str(query.value(1))
+
+            if baja  != '' and codigo != '':
+                #modifico la baja
+                return True
+            elif baja == '' and codigo != '':
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Aviso')
+                mbox.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
+                msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                msg.setText('El Cliente esta dado de Alta')
+                msg.exec()
+            elif baja == '' and codigo == '':
+                return False
+        except Exception as error:
+            print('error control baja cli', error)
