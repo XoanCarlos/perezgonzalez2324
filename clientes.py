@@ -1,3 +1,5 @@
+import time
+
 from PyQt6 import QtWidgets, QtCore, QtGui
 
 import conexion
@@ -8,8 +10,10 @@ class Clientes():
         try:
             data = ('{:02d}/{:02d}/{:4d}'.format(qDate.day(), qDate.month(), qDate.year()))
             var.ui.txtaltacli.setText(data)
-            return data
+            time.sleep(0.8)
             var.calendar.hide()
+            return data
+
         except Exception as error:
             print("error en cargar fecha: ", error)
 
@@ -43,6 +47,7 @@ class Clientes():
 
         except Exception as error:
             print("error en validar dni ", error)
+
     def altacliente(self):
         try:
             cliente = [var.ui.txtdnicli, var.ui.txtaltacli, var.ui.txtrazonsocial,
@@ -95,7 +100,6 @@ class Clientes():
                 index += 1
         except Exception as error:
             print("error cargar dato en tabla", error)
-
 
     def bajacliente(self):
         try:

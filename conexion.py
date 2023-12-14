@@ -177,6 +177,7 @@ class Conexion():
 
     def modifDriver(modifdriver):
         try:
+
             registro = Conexion.onedriver(int(modifdriver[0]))
             if modifdriver == registro[:-1]:
                 msg = QtWidgets.QMessageBox()
@@ -210,17 +211,9 @@ class Conexion():
                         msg.exec()
                         Conexion.selectDrivers(1)
                 elif opcion == QtWidgets.QMessageBox.StandardButton.No:
-                    var.calendar2 = QtWidgets.QCalendarWidget()
-                    dia = datetime.now().day
-                    mes = datetime.now().month
-                    ano = datetime.now().year
-                    var.calendar2.setSelectedDate((QtCore.QDate(ano, mes, dia)))
-                    var.calendar2.clicked.connect(Conexion.handleDateClick)
-                    #var.calendar2.selectionChanged.connect(Conexion.showSelectedDate)
-                    data = var.calendar2.getSelectedDate()
-                    data = data.toString("dd/MM/yyyy")
-                    var.calendar2.show()
-                    print(data)
+                    data = Conexion.nuevafecha()
+
+
                     if registro[11] != '':
                         query1 = QtSql.QSqlQuery()
                         query1.prepare('update drivers set bajadri = :data where '
@@ -276,9 +269,20 @@ class Conexion():
         except Exception as error:
             print('error en modificar driver en conexion ', error)
 
+    def nuevafecha():
+        var.calendar2 = QtWidgets.QCalendarWidget()
+        dia = datetime.now().day
+        mes = datetime.now().month
+        ano = datetime.now().year
+        var.calendar2.setSelectedDate((QtCore.QDate(ano, mes, dia)))
+        var.calendar2.show()
+        var.calendar2.clicked.connect(Conexion.handleDateClick)
 
-    def handleDateClick(self, date):
-        Conexion.showSelectedDate(date)
+    def handleDateClick(self, qDate):
+        #Conexion.showSelectedDate(qDate)
+        data  = qDate.toString("dd/MM/yyyy")
+        print(data)
+
     def borraDriv(dni):
         try:
             query1 = QtSql.QSqlQuery()
