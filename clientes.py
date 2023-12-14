@@ -13,7 +13,6 @@ class Clientes():
             time.sleep(0.8)
             var.calendar.hide()
             return data
-
         except Exception as error:
             print("error en cargar fecha: ", error)
 

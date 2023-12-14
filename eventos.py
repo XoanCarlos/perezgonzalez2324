@@ -38,7 +38,6 @@ class Eventos():
         except Exception as error:
             print('error abrir ventana acerca: ', error)
 
-
     def mostrarsalir(self=None):
 
         mbox = QtWidgets.QMessageBox()

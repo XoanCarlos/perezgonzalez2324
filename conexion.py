@@ -1,6 +1,7 @@
 from PyQt6 import QtWidgets, QtSql, QtGui, QtCore
 from windowaux import *
-from datetime import date, datetime
+from datetime import datetime
+import time
 import drivers
 import var
 import clientes
@@ -477,6 +478,13 @@ class Conexion():
                     msg.exec()
                 Conexion.mostrarclientes(0)
             else:
+                fecha = var.ui.txtdnicli.text()
+                query = QtSql.QSqlQuery()
+                query.prepare('update clientes set baja = :fechabaja where '
+                              ' dni = :dni')
+                query.bindValue(':fechabaja', str(fecha))
+                query.bindValue(':dni', str(dni))
+
                 msg = QtWidgets.QMessageBox()
                 msg.setWindowTitle('Aviso')
                 msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
@@ -567,7 +575,7 @@ class Conexion():
             elif baja == '' and codigo != '':
                 msg = QtWidgets.QMessageBox()
                 msg.setWindowTitle('Aviso')
-                mbox.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
+                msg.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
                 msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
                 msg.setText('El Cliente esta dado de Alta')
                 msg.exec()
