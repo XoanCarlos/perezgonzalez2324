@@ -1,4 +1,6 @@
 from PyQt6 import QtWidgets, QtSql, QtGui, QtCore
+
+import eventos
 from windowaux import *
 from datetime import datetime
 import time
@@ -33,7 +35,7 @@ class Conexion():
 
     def cargaprovcli(self=None):
         try:
-            var.ui.cmbProv.clear()
+            (var.ui.cmbprocli.clear())
             query = QtSql.QSqlQuery()
             query.prepare('select provincia from provincias')
             if query.exec():
@@ -439,12 +441,12 @@ class Conexion():
                               ' dni = :dni')
                 query.bindValue(':fechabaja', str(fecha))
                 query.bindValue(':dni', str(dni))
-
                 msg = QtWidgets.QMessageBox()
                 msg.setWindowTitle('Aviso')
                 msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
                 msg.setText('No existe cliente o cliente dado de baja anteriormente')
                 msg.exec()
+                Conexion.mostrarclientes(0)
         except Exception as error:
             print('error en baja cliente en conexion ', error)
 
@@ -486,33 +488,78 @@ class Conexion():
 
     def modifcliente(registro):
         try:
-            query = QtSql.QSqlQuery()
-            query.prepare('update clientes set dni = :dni, altacli= :alta, razonsocial= :razon, '
-                          ' direccion = :direccion, provincia = :provincia, municipio = :municipio, '
-                          ' telefono = :telefono, baja where codcli = :codigo')
+            copia = Conexion.onecliente(registro[0])
+            if copia[:-1] != registro:
 
-            query.bindValue(':codigo', int(registro[0]))
-            query.bindValue(':dni', str(registro[1]))
-            query.bindValue(':alta', str(registro[2]))
-            query.bindValue(':razon', str(registro[3]))
-            query.bindValue(':direccion', str(registro[4]))
-            query.bindValue(':provincia', str(registro[5]))
-            query.bindValue(':municipio', str(registro[6]))
-            query.bindValue(':telefono', str(registro[7]))
-            if query.exec():
-                msg = QtWidgets.QMessageBox()
-                msg.setWindowTitle('Aviso')
-                msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                msg.setText('Datos Cliente Modificados')
-                msg.exec()
-                Conexion.selectDrivers(1)
+                query = QtSql.QSqlQuery()
+                query.prepare('update clientes set dni = :dni, altacli= :alta, razonsocial= :razon, '
+                              ' direccion = :direccion, provincia = :provincia, municipio = :municipio, '
+                              ' telefono = :telefono where codcli = :codigo')
+
+                query.bindValue(':codigo', int(registro[0]))
+                query.bindValue(':dni', str(registro[1]))
+                query.bindValue(':alta', str(registro[2]))
+                query.bindValue(':razon', str(registro[3]))
+                query.bindValue(':direccion', str(registro[4]))
+                query.bindValue(':provincia', str(registro[5]))
+                query.bindValue(':municipio', str(registro[6]))
+                query.bindValue(':telefono', str(registro[7]))
+                if query.exec():
+                    msg = QtWidgets.QMessageBox()
+                    msg.setWindowTitle('Aviso')
+                    msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                    msg.setText('Datos Cliente Modificados')
+                    msg.exec()
+                    Conexion.mostrarclientes(0)
+                else:
+                    msg = QtWidgets.QMessageBox()
+                    msg.setWindowTitle('Aviso')
+                    msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+                    msg.setText(query.lastError().text())
+                    msg.exec()
             else:
                 msg = QtWidgets.QMessageBox()
                 msg.setWindowTitle('Aviso')
-                msg.setIcon(QtWidgets.QMessageBox.Icon.Warning)
-                msg.setText(query.lastError().text())
-                msg.exec()
+                msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                msg.setText('No hay datos que modificar. Desea cambiar la fecha o eliminar fecha de baja?')
+                msg.setStandardButtons(
+                    QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No |
+                    QtWidgets.QMessageBox.StandardButton.Cancel)
+                msg.button(QtWidgets.QMessageBox.StandardButton.Yes).setText("Alta")
+                msg.button(QtWidgets.QMessageBox.StandardButton.No).setText("Modificar")
+                msg.button(QtWidgets.QMessageBox.StandardButton.Cancel).setText('Cancelar')
+                opcion = msg.exec()
+                if opcion == QtWidgets.QMessageBox.StandardButton.Yes:
+                    query = QtSql.QSqlQuery()
+                    query.prepare('update clientes set baja = NULL where codcli = :codigo')
+                    query.bindValue(':codigo', int(registro[0]))
+                    if query.exec():
+                        msg = QtWidgets.QMessageBox()
+                        msg.setWindowTitle('Aviso')
+                        msg.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
+                        msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                        msg.setText('El Cliente esta dado de Alta')
+                        msg.exec()
+                        Conexion.mostrarclientes(0)
+                elif opcion == QtWidgets.QMessageBox.StandardButton.No:
+                    fecha = datetime.today()
+                    fecha = fecha.strftime('%d/%m/%Y')
+                    query = QtSql.QSqlQuery()
+                    query.prepare('update clientes set baja = :nuevafecha where codcli = :codigo')
+                    query.bindValue(':codigo', int(registro[0]))
+                    query.bindValue(':nuevafecha', str(fecha))
+                    if query.exec():
+                        msg = QtWidgets.QMessageBox()
+                        msg.setWindowTitle('Aviso')
+                        msg.setWindowIcon(QtGui.QIcon('./img/logo.ico'))
+                        msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                        msg.setText('Modificada Fecha Baja')
+                        msg.exec()
+                        Conexion.mostrarclientes(0)
+                    #conexion.Conexion.nuevafecha(modifdriver, registro, fecha)
 
+                elif opcion == QtWidgets.QMessageBox.StandardButton.Cancel:
+                    pass
         except Exception as error:
             print('error modifica cliente en conexion', error)
 
@@ -544,23 +591,24 @@ class Conexion():
         except Exception as error:
             print('error control baja cli', error)
 
-    # if registro[11] != '':
-    #     query1 = QtSql.QSqlQuery()
-    #     query1.prepare('update drivers set bajadri = :data where '
-    #                    ' dnidri = :dni')
-    #     query1.bindValue(':data', str(data))
-    #     query1.bindValue(':dni', str(modifdriver[1]))
-    #     if query1.exec():
-    #         msg = QtWidgets.QMessageBox()
-    #         msg.setWindowTitle('Aviso')
-    #         msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
-    #         msg.setText('Baja Modificada. Nueva Fecha Baja')
-    #         msg.exec()
-    #     Conexion.selectDrivers(0)
-    # else:
-    #     msg = QtWidgets.QMessageBox()
-    #     msg.setWindowTitle('Aviso')
-    #     msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
-    #     msg.setText('El conductor está en alta. Nada que modificar')
-    #     msg.exec()
-    #     Conexion.selectDrivers(1)
+    def nuevafecha(modifdriver, registro, fecha):
+        if registro[11] != '':
+            query1 = QtSql.QSqlQuery()
+            query1.prepare('update drivers set bajadri = :data where '
+                           ' dnidri = :dni')
+            query1.bindValue(':data', str(fecha))
+            query1.bindValue(':dni', str(modifdriver[1]))
+            if query1.exec():
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                msg.setText('Baja Modificada. Nueva Fecha Baja')
+                msg.exec()
+            Conexion.selectDrivers(0)
+        else:
+            msg = QtWidgets.QMessageBox()
+            msg.setWindowTitle('Aviso')
+            msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+            msg.setText('El conductor está en alta. Nada que modificar')
+            msg.exec()
+            Conexion.selectDrivers(1)

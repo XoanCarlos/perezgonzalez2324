@@ -24,8 +24,9 @@ class Calendar(QtWidgets.QDialog):
         ano = datetime.now().year
         var.calendar.Calendar.setSelectedDate((QtCore.QDate(ano,mes,dia)))
         var.calendar.Calendar.clicked.connect(drivers.Drivers.cargaFecha)
-
         var.calendar.Calendar.clicked.connect(clientes.Clientes.cargaFecha2)
+
+
 
 class FileDialogAbrir(QtWidgets.QFileDialog):
     def __init__(self):
