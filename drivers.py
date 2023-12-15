@@ -2,6 +2,7 @@ from PyQt6 import QtWidgets, QtCore, QtGui
 
 import clientes
 import conexion
+import eventos
 import var
 
 
@@ -39,8 +40,8 @@ class Drivers():
             data = ('{:02d}/{:02d}/{:4d}'.format(qDate.day(), qDate.month(), qDate.year()))
             var.ui.txtDatadriver.setText(str(data))
             var.ui.txtdnicli.setText(str(data))
-            formato = var.calendar.Calendar.dateTextFormat(data)
-            formato.setForeground(QtGui.QColor('blue'))
+            #formato = var.calendar.Calendar.dateTextFormat(data)
+            #formato.setForeground(QtGui.QColor('blue'))
             return data
             var.calendar.hide()
         except Exception as error:
@@ -194,9 +195,6 @@ class Drivers():
                 var.ui.chkD.setChecked(True)
             else:
                 var.ui.chkD.setChecked(False)
-
-            #Drivers.cargartabladri(conexion.Conexion.mostrardrivers())
-
         except Exception as error:
             print("cargar datos en panel gestión", error)
 
@@ -218,7 +216,29 @@ class Drivers():
                 if i.isChecked():
                     licencias.append(i.text())
             modifdriver.append('-'.join(licencias))
-            conexion.Conexion.modifDriver(modifdriver)
+            registro = conexion.Conexion.onedriver(int(modifdriver[0]))
+            if modifdriver == registro[:-1]:
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle('Aviso')
+                msg.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                msg.setText('No hay datos que modificar. Desea cambiar la fecha o eliminar fecha de baja?')
+                msg.setStandardButtons(
+                    QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No |
+                    QtWidgets.QMessageBox.StandardButton.Cancel)
+                msg.button(QtWidgets.QMessageBox.StandardButton.Yes).setText("Alta")
+                msg.button(QtWidgets.QMessageBox.StandardButton.No).setText("Modificar")
+                msg.button(QtWidgets.QMessageBox.StandardButton.Cancel).setText('Cancelar')
+                opcion = msg.exec()
+                if opcion == QtWidgets.QMessageBox.StandardButton.Yes:
+                    conexion.Conexion.modifDriver(modifdriver, registro, 1)
+                elif opcion == QtWidgets.QMessageBox.StandardButton.No:
+                    eventos.Eventos.abrirCalendar(self)
+                    
+                elif opcion == QtWidgets.QMessageBox.StandardButton.Cancel:
+                    pass
+            else:
+                conexion.Conexion.modifDriver(modifdriver, registro, 0)
+
         except Exception as error:
             print('error en modif driver en Drivers', error)
 
