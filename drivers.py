@@ -4,6 +4,8 @@ import clientes
 import conexion
 import eventos
 import var
+import windowaux
+from windowaux import *
 
 
 class Drivers():
@@ -232,7 +234,9 @@ class Drivers():
                 if opcion == QtWidgets.QMessageBox.StandardButton.Yes:
                     conexion.Conexion.modifDriver(modifdriver, registro, 1)
                 elif opcion == QtWidgets.QMessageBox.StandardButton.No:
-                    eventos.Eventos.abrirCalendar(self)
+                    fecha = datetime.today()
+                    fecha = fecha.strftime('%d/%m/%Y')
+                    conexion.Conexion.nuevafecha(modifdriver, registro, fecha)
                     
                 elif opcion == QtWidgets.QMessageBox.StandardButton.Cancel:
                     pass
