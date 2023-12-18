@@ -7,6 +7,7 @@ import sys
 import eventos
 import locale
 import conexion
+import informes
 # Establecer la configuración regional en español
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 locale.setlocale(locale.LC_MONETARY, 'es_ES.UTF-8')
@@ -54,7 +55,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionRestaurar_Copia_Seguridad.triggered.connect(eventos.Eventos.restaurarbackup)
         var.ui.actionExportar_Datos_Excel.triggered.connect(eventos.Eventos.exportardatosxls)
         var.ui.actionImportar_Datos_XLS.triggered.connect(eventos.Eventos.importardatosxls)
-
+        var.ui.actionListado_Clientes.triggered.connect(informes.Informes.reportclientes)
         '''
         
         zona eventos cajas de texto

@@ -2130,8 +2130,17 @@ background-color:rgb(100,100,100);
     <addaction name="actionExportar_Datos_Excel"/>
     <addaction name="actionImportar_Datos_XLS"/>
    </widget>
+   <widget class="QMenu" name="menuInformes">
+    <property name="title">
+     <string>Informes</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="actionListado_Clientes"/>
+    <addaction name="actionListado_Conductores"/>
+   </widget>
    <addaction name="menuArchivo"/>
    <addaction name="menuHerramientas"/>
+   <addaction name="menuInformes"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QToolBar" name="toolBar">
@@ -2236,6 +2245,16 @@ background-color:rgb(100,100,100);
   <action name="actionImportar_Datos_XLS">
    <property name="text">
     <string>Importar Datos XLS</string>
+   </property>
+  </action>
+  <action name="actionListado_Clientes">
+   <property name="text">
+    <string>Listado Clientes</string>
+   </property>
+  </action>
+  <action name="actionListado_Conductores">
+   <property name="text">
+    <string>Listado Conductores</string>
    </property>
   </action>
  </widget>
