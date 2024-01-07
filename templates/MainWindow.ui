@@ -211,7 +211,7 @@
                 <widget class="QLabel" name="lblCarnet">
                  <property name="minimumSize">
                   <size>
-                   <width>70</width>
+                   <width>100</width>
                    <height>0</height>
                   </size>
                  </property>
@@ -225,20 +225,7 @@
                   <string>Tipo de Carnet:</string>
                  </property>
                  <property name="alignment">
-                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="3">
-                <widget class="QCheckBox" name="chkB">
-                 <property name="maximumSize">
-                  <size>
-                   <width>40</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string>B</string>
+                  <set>Qt::AlignCenter</set>
                  </property>
                 </widget>
                </item>
@@ -251,7 +238,7 @@
                   </size>
                  </property>
                  <property name="text">
-                  <string>D</string>
+                  <string>D  </string>
                  </property>
                 </widget>
                </item>
@@ -264,9 +251,38 @@
                   </size>
                  </property>
                  <property name="text">
-                  <string>C</string>
+                  <string>C  </string>
                  </property>
                 </widget>
+               </item>
+               <item row="0" column="3">
+                <widget class="QCheckBox" name="chkB">
+                 <property name="maximumSize">
+                  <size>
+                   <width>40</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>B  </string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="6">
+                <spacer name="horizontalSpacer_9">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeType">
+                  <enum>QSizePolicy::Expanding</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>300</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
                </item>
                <item row="0" column="2">
                 <widget class="QCheckBox" name="chkA">
@@ -280,25 +296,9 @@
                   <bool>false</bool>
                  </property>
                  <property name="text">
-                  <string>A</string>
+                  <string> A  </string>
                  </property>
                 </widget>
-               </item>
-               <item row="0" column="6">
-                <spacer name="horizontalSpacer_9">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeType">
-                  <enum>QSizePolicy::Maximum</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>350</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
                </item>
               </layout>
              </item>
@@ -477,13 +477,13 @@
                  </property>
                  <property name="minimumSize">
                   <size>
-                   <width>450</width>
+                   <width>500</width>
                    <height>20</height>
                   </size>
                  </property>
                  <property name="maximumSize">
                   <size>
-                   <width>500</width>
+                   <width>550</width>
                    <height>16777215</height>
                   </size>
                  </property>
@@ -563,7 +563,7 @@
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
-                   <width>40</width>
+                   <width>20</width>
                    <height>20</height>
                   </size>
                  </property>
